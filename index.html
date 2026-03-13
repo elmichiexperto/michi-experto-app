@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6BCF9C">
+<meta name="description" content="El Michi Experto - Todos los consejos para dueños de gatos">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Michi Experto">
+<title>El Michi Experto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #6BCF9C;
+    --green-dark: #4db882;
+    --green-light: #e8f8f0;
+    --yellow: #FFD166;
+    --yellow-dark: #f0b429;
+    --dark: #2F2F2F;
+    --dark2: #3d3d3d;
+    --card-bg: #ffffff;
+    --text: #2F2F2F;
+    --text-muted: #7a7a7a;
+    --bg: #f4faf7;
+    --border: #e2f4eb;
+    --card-shadow: 0 4px 24px rgba(107,207,156,0.12);
+    --radius: 18px;
+  }
+
+  [data-theme="dark"] {
+    --card-bg: #1e2d28;
+    --text: #f0f0f0;
+    --text-muted: #9ca3af;
+    --bg: #141f1c;
+    --border: #2a3d35;
+    --green-light: #1a2e25;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .header {
+    background: var(--dark);
+    padding: 0 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid var(--green);
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Baloo 2', cursive;
+    color: var(--yellow);
+    font-size: 17px;
+    line-height: 1.1;
+  }
+
+  .logo-text span {
+    font-size: 11px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    color: var(--green);
+    display: block;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(107,207,156,0.15);
+    border: 1.5px solid rgba(107,207,156,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    transition: background 0.2s, transform 0.1s;
+    color: white;
+  }
+
+  .icon-btn:active { transform: scale(0.9); }
+  .icon-btn:hover { background: rgba(107,207,156,0.3); }
+
+  .search-bar { padding: 10px 0 14px; }
+  .search-input-wrap { position: relative; }
+
+  .search-input {
+    width: 100%;
+    padding: 11px 16px 11px 42px;
+    border-radius: 50px;
+    border: 2px solid rgba(107,207,156,0.3);
+    background: rgba(255,255,255,0.08);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .search-input::placeholder { color: rgba(255,255,255,0.4); }
+  .search-input:focus { border-color: var(--green); background: rgba(255,255,255,0.12); }
+
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+  }
+
+  .tabs-wrap {
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    transition: background 0.3s;
+  }
+
+  .tabs-wrap::-webkit-scrollbar { display: none; }
+
+  .tabs {
+    display: flex;
+    padding: 0 12px;
+    gap: 2px;
+    min-width: max-content;
+  }
+
+  .tab {
+    padding: 13px 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tab.active { color: var(--green-dark); border-bottom-color: var(--green); }
+  .tab:hover { color: var(--green-dark); }
+
+  main {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .subscribe-banner {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1.5px solid rgba(107,207,156,0.2);
+    animation: slideDown 0.4s ease;
+  }
+
+  .subscribe-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .subscribe-banner img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--green);
+    flex-shrink: 0;
+  }
+
+  .subscribe-banner p { color: white; font-size: 13px; font-weight: 700; line-height: 1.3; }
+  .subscribe-banner p span { font-size: 11px; font-weight: 500; color: var(--green); display: block; }
+
+  .sub-btn {
+    background: var(--yellow);
+    color: var(--dark);
+    border: none;
+    padding: 9px 14px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.1s, background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .sub-btn:active { transform: scale(0.95); }
+  .sub-btn:hover { background: var(--yellow-dark); }
+
+  .paywall-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .paywall-overlay.show { display: flex; }
+
+  .paywall-card {
+    background: var(--card-bg);
+    border-radius: 28px 28px 0 0;
+    padding: 32px 24px 44px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    animation: slideUp 0.4s ease;
+  }
+
+  .paywall-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid var(--green);
+    margin: 0 auto 14px;
+    display: block;
+  }
+
+  .paywall-badge {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+  }
+
+  .paywall-card h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .paywall-card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .paywall-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    background: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: transform 0.1s;
+    box-shadow: 0 4px 20px rgba(255,0,0,0.25);
+  }
+
+  .paywall-btn-primary:active { transform: scale(0.98); }
+
+  .paywall-btn-secondary {
+    background: none;
+    border: 2px solid var(--green);
+    color: var(--green-dark);
+    padding: 14px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .paywall-btn-secondary:hover { background: var(--green); color: white; }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .video-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeInUp 0.4s ease both;
+    border: 1.5px solid var(--border);
+  }
+
+  .video-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(107,207,156,0.2); }
+  .video-card:active { transform: scale(0.97); }
+
+  .video-thumb {
+    position: relative;
+    aspect-ratio: 9/16;
+    overflow: hidden;
+    background: var(--green-light);
+  }
+
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .video-card:hover .video-thumb img { transform: scale(1.05); }
+
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(47,47,47,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .video-card:hover .play-overlay { opacity: 1; }
+
+  .play-btn {
+    width: 46px;
+    height: 46px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  .fav-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    background: rgba(47,47,47,0.55);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: transform 0.2s, background 0.2s;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+  }
+
+  .fav-btn:active { transform: scale(0.8); }
+  .fav-btn.active { background: rgba(255,209,102,0.85); }
+
+  .locked-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(47,47,47,0.75);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    backdrop-filter: blur(2px);
+  }
+
+  .locked-overlay span:first-child { font-size: 28px; }
+  .locked-overlay span:last-child { color: var(--yellow); font-size: 11px; font-weight: 700; text-align: center; padding: 0 10px; line-height: 1.3; }
+
+  .video-info { padding: 10px 11px 12px; }
+
+  .video-title {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 7px;
+  }
+
+  .video-tag {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--green-light);
+    color: var(--green-dark);
+    border: 1px solid rgba(107,207,156,0.3);
+  }
+
+  .player-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .player-modal.show { display: flex; }
+
+  .player-wrap {
+    background: var(--dark);
+    border-radius: 22px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    animation: popIn 0.3s ease;
+    border: 2px solid rgba(107,207,156,0.2);
+  }
+
+  .player-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s;
+  }
+
+  .player-close:hover { background: rgba(255,255,255,0.25); }
+
+  .player-iframe-wrap { position: relative; padding-bottom: 177.77%; height: 0; }
+  .player-iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+  .player-sub-nudge {
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid rgba(107,207,156,0.15);
+  }
+
+  .player-nudge-left { display: flex; align-items: center; gap: 8px; }
+
+  .player-nudge-left img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--green);
+  }
+
+  .player-sub-nudge p { color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 600; line-height: 1.4; }
+  .player-sub-nudge p strong { color: var(--green); display: block; font-size: 12px; }
+
+  .player-sub-nudge button {
+    background: var(--yellow);
+    color: var(--dark);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 20px;
+    gap: 16px;
+  }
+
+  .loading-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid var(--green);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(107,207,156,0.4); }
+    50% { box-shadow: 0 0 0 14px rgba(107,207,156,0); }
+  }
+
+  .loading p { color: var(--text-muted); font-weight: 600; font-size: 14px; }
+
+  .empty { text-align: center; padding: 60px 20px; }
+  .empty-emoji { font-size: 52px; margin-bottom: 12px; }
+  .empty h3 { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 6px; }
+  .empty p { color: var(--text-muted); font-size: 14px; font-weight: 500; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+
+  .video-card:nth-child(1) { animation-delay: 0.04s; }
+  .video-card:nth-child(2) { animation-delay: 0.08s; }
+  .video-card:nth-child(3) { animation-delay: 0.12s; }
+  .video-card:nth-child(4) { animation-delay: 0.16s; }
+  .video-card:nth-child(5) { animation-delay: 0.20s; }
+  .video-card:nth-child(6) { animation-delay: 0.24s; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--dark);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 400;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+    border: 1px solid rgba(107,207,156,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <div class="logo">
+      <img class="logo-img" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="El Michi Experto">
+      <div class="logo-text">
+        El Michi Experto
+        <span>Consejos para dueños de gatos</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="favToggle" title="Favoritos" onclick="toggleFavView()">🤍</button>
+      <button class="icon-btn" id="themeToggle" title="Modo oscuro" onclick="toggleTheme()">🌙</button>
+    </div>
+  </div>
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" id="searchInput" placeholder="Buscar consejos para tu gato..." oninput="handleSearch()">
+    </div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="selectTab('all', this)">🐾 Todos</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr', this)">😼 Comportamiento</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd', this)">🍗 Alimentación</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb', this)">🛁 Cuidados</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer', this)">🧸 Juegos</button>
+  </div>
+</div>
+
+<main id="mainContent">
+  <div class="loading">
+    <img class="loading-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="Cargando...">
+    <p>Cargando consejos felinos...</p>
+  </div>
+</main>
+
+<div class="paywall-overlay" id="paywallOverlay">
+  <div class="paywall-card">
+    <img class="paywall-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="El Michi Experto">
+    <div class="paywall-badge">🔒 Contenido exclusivo</div>
+    <h2>¡Hay más consejos!</h2>
+    <p>Ya has visto los primeros videos gratuitos.<br>Suscríbete al canal para desbloquear todos los consejos del Michi Experto. ¡Es gratis y en YouTube!</p>
+    <button class="paywall-btn-primary" onclick="goSubscribe()">▶ &nbsp;Suscribirme en YouTube</button>
+    <button class="paywall-btn-secondary" onclick="unlockAll()">Ya estoy suscrito ✓</button>
+  </div>
+</div>
+
+<div class="player-modal" id="playerModal">
+  <div class="player-wrap">
+    <button class="player-close" onclick="closePlayer()">✕</button>
+    <div class="player-iframe-wrap">
+      <iframe id="playerIframe" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="player-sub-nudge">
+      <div class="player-nudge-left">
+        <img src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="logo">
+        <p><strong>¿Te ha gustado?</strong>No te pierdas ningún video más 🐾</p>
+      </div>
+      <button onclick="goSubscribe()">Suscribirme</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_KEY = 'AIzaSyC9Qw8syDPv9uTbBicwBwqSAtL4UoQTu_Y'; // 👈 REEMPLAZA CON TU API KEY
+const CHANNEL_URL = 'https://www.youtube.com/@ELMICHIEXPERTO';
+const LOGO_URL = 'https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj';
+const FREE_VIDEOS = 6;
+
+const PLAYLISTS = {
+  'PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr': 'Comportamiento',
+  'PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd': 'Alimentación',
+  'PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb': 'Cuidados',
+  'PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer': 'Juegos'
+};
+
+let allVideos = [], filteredVideos = [];
+let favorites = JSON.parse(localStorage.getItem('michi_favs') || '[]');
+let unlocked = localStorage.getItem('michi_unlocked') === 'true';
+let currentTab = 'all', showingFavs = false;
+
+async function fetchPlaylist(playlistId) {
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`);
+  const data = await res.json();
+  if (!data.items) return [];
+  return data.items.map(item => ({
+    id: item.snippet.resourceId.videoId,
+    title: item.snippet.title,
+    thumb: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.medium?.url || '',
+    category: PLAYLISTS[playlistId],
+    playlistId
+  }));
+}
+
+async function loadAllVideos() {
+  try {
+    const results = await Promise.all(Object.keys(PLAYLISTS).map(fetchPlaylist));
+    const seen = new Set();
+    allVideos = results.flat().filter(v => { if (seen.has(v.id)) return false; seen.add(v.id); return true; });
+    filteredVideos = [...allVideos];
+    renderVideos(filteredVideos);
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `<div class="empty"><div class="empty-emoji">⚠️</div><h3>Error al cargar</h3><p>Revisa que la API Key sea correcta.</p></div>`;
+  }
+}
+
+function renderVideos(videos) {
+  const main = document.getElementById('mainContent');
+  if (!videos.length) {
+    main.innerHTML = `<div class="empty"><div class="empty-emoji">🔍</div><h3>Sin resultados</h3><p>Prueba con otras palabras clave.</p></div>`;
+    return;
+  }
+  const banner = (!unlocked && !showingFavs) ? `
+    <div class="subscribe-banner">
+      <div class="subscribe-banner-left">
+        <img src="${LOGO_URL}" alt="logo">
+        <p>¡Nuevo video cada día! 🐱<span>Suscríbete para no perderte ninguno</span></p>
+      </div>
+      <button class="sub-btn" onclick="goSubscribe()">Suscribirme</button>
+    </div>` : '';
+
+  const cards = videos.map((v, i) => {
+    const isLocked = !unlocked && i >= FREE_VIDEOS;
+    const isFav = favorites.includes(v.id);
+    return `<div class="video-card" onclick="${isLocked ? 'showPaywall()' : `playVideo('${v.id}')`}">
+      <div class="video-thumb">
+        <img src="${v.thumb}" alt="${v.title}" loading="lazy">
+        ${isLocked
+          ? `<div class="locked-overlay"><span>🔒</span><span>Suscríbete para ver</span></div>`
+          : `<div class="play-overlay"><div class="play-btn">▶</div></div>
+             <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation();toggleFav('${v.id}')">${isFav ? '⭐' : '☆'}</button>`}
+      </div>
+      <div class="video-info">
+        <div class="video-title">${v.title}</div>
+        <span class="video-tag">${v.category}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  main.innerHTML = banner + `<div class="video-grid">${cards}</div>`;
+}
+
+function selectTab(id, btn) {
+  currentTab = id; showingFavs = false;
+  document.getElementById('favToggle').textContent = '🤍';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('searchInput').value = '';
+  filteredVideos = id === 'all' ? [...allVideos] : allVideos.filter(v => v.playlistId === id);
+  renderVideos(filteredVideos);
+}
+
+function handleSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  showingFavs = false;
+  document.getElementById('favToggle').textContent = '🤍';
+  const base = currentTab === 'all' ? allVideos : allVideos.filter(v => v.playlistId === currentTab);
+  filteredVideos = q ? base.filter(v => v.title.toLowerCase().includes(q)) : [...base];
+  renderVideos(filteredVideos);
+}
+
+function playVideo(id) {
+  document.getElementById('playerIframe').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+  document.getElementById('playerModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePlayer() {
+  document.getElementById('playerIframe').src = '';
+  document.getElementById('playerModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function showPaywall() {
+  document.getElementById('paywallOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function goSubscribe() {
+  window.open(CHANNEL_URL + '?sub_confirmation=1', '_blank');
+  document.getElementById('paywallOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function unlockAll() {
+  unlocked = true;
+  localStorage.setItem('michi_unlocked', 'true');
+  document.getElementById('paywallOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  renderVideos(filteredVideos);
+  showToast('¡Acceso completo desbloqueado! 🐾');
+}
+
+function toggleFav(id) {
+  const idx = favorites.indexOf(id);
+  if (idx === -1) { favorites.push(id); showToast('⭐ Añadido a favoritos'); }
+  else { favorites.splice(idx, 1); showToast('Eliminado de favoritos'); }
+  localStorage.setItem('michi_favs', JSON.stringify(favorites));
+  showingFavs ? renderVideos(allVideos.filter(v => favorites.includes(v.id))) : renderVideos(filteredVideos);
+}
+
+function toggleFavView() {
+  showingFavs = !showingFavs;
+  const btn = document.getElementById('favToggle');
+  if (showingFavs) {
+    btn.textContent = '⭐';
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const favs = allVideos.filter(v => favorites.includes(v.id));
+    if (!favs.length) {
+      document.getElementById('mainContent').innerHTML = `<div class="empty"><div class="empty-emoji">⭐</div><h3>Sin favoritos aún</h3><p>Toca la estrella en los videos que más te gusten.</p></div>`;
+    } else renderVideos(favs);
+  } else {
+    btn.textContent = '🤍';
+    renderVideos(filteredVideos);
+    document.querySelector('.tab').classList.add('active');
+  }
+}
+
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('michi_theme', isDark ? 'light' : 'dark');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.getElementById('paywallOverlay').addEventListener('click', function(e) {
+  if (e.target === this) { this.classList.remove('show'); document.body.style.overflow = ''; }
+});
+document.getElementById('playerModal').addEventListener('click', function(e) {
+  if (e.target === this) closePlayer();
+});
+
+const savedTheme = localStorage.getItem('michi_theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+}
+
+loadAllVideos();
+</script>
+</body>
+</html>
