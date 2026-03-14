@@ -4,519 +4,252 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#6BCF9C">
-<meta name="description" content="El Michi Experto - Todos los consejos para dueños de gatos">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Michi Experto">
+<meta name="description" content="El Michi Experto - Todos los consejos para dueños de gatos">
 <title>El Michi Experto</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #6BCF9C;
-    --green-dark: #4db882;
-    --green-light: #e8f8f0;
-    --yellow: #FFD166;
-    --yellow-dark: #f0b429;
-    --dark: #2F2F2F;
-    --dark2: #3d3d3d;
-    --card-bg: #ffffff;
-    --text: #2F2F2F;
-    --text-muted: #7a7a7a;
-    --bg: #f4faf7;
-    --border: #e2f4eb;
-    --card-shadow: 0 4px 24px rgba(107,207,156,0.12);
-    --radius: 18px;
-    --nav-h: 64px;
-  }
-
-  [data-theme="dark"] {
-    --card-bg: #1e2d28;
-    --text: #f0f0f0;
-    --text-muted: #9ca3af;
-    --bg: #141f1c;
-    --border: #2a3d35;
-    --green-light: #1a2e25;
-    --card-shadow: 0 4px 24px rgba(0,0,0,0.3);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Quicksand', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
-    padding-bottom: var(--nav-h);
-  }
-
-  /* ── HEADER ── */
-  .header {
-    background: var(--dark);
-    padding: 0 16px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  }
-
-  .header-top { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-
-  .logo { display: flex; align-items: center; gap: 10px; }
-
-  .logo-img {
-    width: 42px; height: 42px;
-    border-radius: 50%; object-fit: cover;
-    border: 2.5px solid var(--green);
-    background: #fff; flex-shrink: 0;
-  }
-
-  .logo-text { font-family: 'Baloo 2', cursive; color: var(--yellow); font-size: 17px; line-height: 1.1; }
-  .logo-text span { font-size: 11px; font-family: 'Quicksand', sans-serif; font-weight: 600; color: var(--green); display: block; }
-
-  .header-actions { display: flex; gap: 8px; align-items: center; }
-
-  .icon-btn {
-    width: 36px; height: 36px;
-    background: rgba(107,207,156,0.15);
-    border: 1.5px solid rgba(107,207,156,0.3);
-    border-radius: 50%; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 15px; transition: background 0.2s, transform 0.1s; color: white;
-  }
-  .icon-btn:active { transform: scale(0.9); }
-  .icon-btn:hover { background: rgba(107,207,156,0.3); }
-
-  .search-bar { padding: 10px 0 14px; }
-  .search-input-wrap { position: relative; }
-
-  .search-input {
-    width: 100%; padding: 11px 16px 11px 42px;
-    border-radius: 50px; border: 2px solid rgba(107,207,156,0.3);
-    background: rgba(255,255,255,0.08);
-    font-family: 'Quicksand', sans-serif; font-size: 14px; font-weight: 600; color: white;
-    outline: none; transition: border-color 0.2s, background 0.2s;
-  }
-  .search-input::placeholder { color: rgba(255,255,255,0.4); }
-  .search-input:focus { border-color: var(--green); background: rgba(255,255,255,0.12); }
-
-  .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 15px; }
-
-  /* ── BOTTOM NAV ── */
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    height: var(--nav-h);
-    background: var(--dark);
-    display: flex; align-items: center; justify-content: space-around;
-    border-top: 1px solid rgba(107,207,156,0.15);
-    z-index: 100;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-  }
-
-  .nav-btn {
-    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 4px; border: none; background: none; cursor: pointer;
-    padding: 8px 0; transition: transform 0.1s;
-  }
-
-  .nav-btn:active { transform: scale(0.92); }
-
-  .nav-icon { font-size: 20px; transition: transform 0.2s; }
-  .nav-label { font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); transition: color 0.2s; }
-
-  .nav-btn.active .nav-label { color: var(--green); }
-  .nav-btn.active .nav-icon { transform: scale(1.15); }
-
-  /* ── PAGES ── */
-  .page { display: none; }
-  .page.active { display: block; }
-
-  /* ── TABS ── */
-  .tabs-wrap {
-    background: var(--card-bg); border-bottom: 2px solid var(--border);
-    overflow-x: auto; scrollbar-width: none; transition: background 0.3s;
-  }
-  .tabs-wrap::-webkit-scrollbar { display: none; }
-
-  .tabs { display: flex; padding: 0 12px; gap: 2px; min-width: max-content; }
-
-  .tab {
-    padding: 13px 15px; border: none; background: none; cursor: pointer;
-    font-family: 'Quicksand', sans-serif; font-size: 13px; font-weight: 700;
-    color: var(--text-muted); border-bottom: 3px solid transparent;
-    transition: all 0.2s; white-space: nowrap;
-  }
-  .tab.active { color: var(--green-dark); border-bottom-color: var(--green); }
-  .tab:hover { color: var(--green-dark); }
-
-  /* ── MAIN ── */
-  main { padding: 16px; max-width: 600px; margin: 0 auto; }
-
-  /* ── SUBSCRIBE BANNER ── */
-  .subscribe-banner {
-    background: var(--dark); border-radius: var(--radius);
-    padding: 14px 16px; margin-bottom: 16px;
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    border: 1.5px solid rgba(107,207,156,0.2);
-    animation: slideDown 0.4s ease;
-  }
-  .subscribe-banner-left { display: flex; align-items: center; gap: 10px; }
-  .subscribe-banner img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--green); flex-shrink: 0; }
-  .subscribe-banner p { color: white; font-size: 13px; font-weight: 700; line-height: 1.3; }
-  .subscribe-banner p span { font-size: 11px; font-weight: 500; color: var(--green); display: block; }
-
-  .sub-btn {
-    background: var(--yellow); color: var(--dark); border: none;
-    padding: 9px 14px; border-radius: 50px;
-    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 12px;
-    cursor: pointer; white-space: nowrap; transition: transform 0.1s, background 0.2s; flex-shrink: 0;
-  }
-  .sub-btn:active { transform: scale(0.95); }
-  .sub-btn:hover { background: var(--yellow-dark); }
-
-  /* ── VIDEO GRID ── */
-  .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .video-card {
-    background: var(--card-bg); border-radius: var(--radius);
-    overflow: hidden; box-shadow: var(--card-shadow); cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    animation: fadeInUp 0.4s ease both; border: 1.5px solid var(--border);
-  }
-  .video-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(107,207,156,0.2); }
-  .video-card:active { transform: scale(0.97); }
-
-  .video-thumb { position: relative; aspect-ratio: 9/16; overflow: hidden; background: var(--green-light); }
-  .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  .video-card:hover .video-thumb img { transform: scale(1.05); }
-
-  .play-overlay {
-    position: absolute; inset: 0; background: rgba(47,47,47,0.3);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.2s;
-  }
-  .video-card:hover .play-overlay { opacity: 1; }
-
-  .play-btn {
-    width: 46px; height: 46px; background: var(--yellow); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  }
-
-  .fav-btn {
-    position: absolute; top: 8px; right: 8px;
-    width: 30px; height: 30px;
-    background: rgba(47,47,47,0.55); border: none; border-radius: 50%;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 14px; transition: transform 0.2s, background 0.2s;
-    z-index: 2; backdrop-filter: blur(4px);
-  }
-  .fav-btn:active { transform: scale(0.8); }
-  .fav-btn.active { background: rgba(255,209,102,0.85); }
-
-  .locked-overlay {
-    position: absolute; inset: 0; background: rgba(47,47,47,0.75);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; backdrop-filter: blur(2px);
-  }
-  .locked-overlay span:first-child { font-size: 28px; }
-  .locked-overlay span:last-child { color: var(--yellow); font-size: 11px; font-weight: 700; text-align: center; padding: 0 10px; line-height: 1.3; }
-
-  .video-info { padding: 10px 11px 12px; }
-  .video-title { font-size: 12px; font-weight: 700; line-height: 1.4; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 7px; }
-  .video-tag { display: inline-block; padding: 3px 9px; border-radius: 50px; font-size: 10px; font-weight: 700; background: var(--green-light); color: var(--green-dark); border: 1px solid rgba(107,207,156,0.3); }
-
-  /* ── PAYWALL ── */
-  .paywall-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-    z-index: 200; align-items: flex-end; justify-content: center;
-    animation: fadeIn 0.3s ease;
-  }
-  .paywall-overlay.show { display: flex; }
-
-  .paywall-card {
-    background: var(--card-bg); border-radius: 28px 28px 0 0;
-    padding: 32px 24px 44px; width: 100%; max-width: 600px;
-    text-align: center; animation: slideUp 0.4s ease;
-  }
-  .paywall-logo { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--green); margin: 0 auto 14px; display: block; }
-  .paywall-badge { display: inline-block; background: var(--green-light); color: var(--green-dark); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 50px; margin-bottom: 14px; }
-  .paywall-card h2 { font-family: 'Baloo 2', cursive; font-size: 24px; color: var(--text); margin-bottom: 8px; }
-  .paywall-card p { color: var(--text-muted); font-size: 14px; font-weight: 600; line-height: 1.6; margin-bottom: 24px; }
-
-  .paywall-btn-primary {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 16px; background: #FF0000; color: white; border: none;
-    border-radius: 50px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 15px;
-    cursor: pointer; margin-bottom: 12px; transition: transform 0.1s;
-    box-shadow: 0 4px 20px rgba(255,0,0,0.25);
-  }
-  .paywall-btn-primary:active { transform: scale(0.98); }
-
-  .paywall-btn-secondary {
-    background: none; border: 2px solid var(--green); color: var(--green-dark);
-    padding: 14px; border-radius: 50px; font-family: 'Quicksand', sans-serif;
-    font-weight: 700; font-size: 14px; cursor: pointer; width: 100%;
-    transition: background 0.2s, color 0.2s;
-  }
-  .paywall-btn-secondary:hover { background: var(--green); color: white; }
-
-  /* ── PLAYER ── */
-  .player-modal {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-    z-index: 300; align-items: center; justify-content: center; padding: 16px;
-  }
-  .player-modal.show { display: flex; }
-
-  .player-wrap {
-    background: var(--dark); border-radius: 22px; overflow: hidden;
-    width: 100%; max-width: 380px; position: relative;
-    animation: popIn 0.3s ease; border: 2px solid rgba(107,207,156,0.2);
-  }
-  .player-close {
-    position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
-    background: rgba(255,255,255,0.12); border: none; border-radius: 50%;
-    color: white; font-size: 14px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; z-index: 10;
-    transition: background 0.2s;
-  }
-  .player-close:hover { background: rgba(255,255,255,0.25); }
-  .player-iframe-wrap { position: relative; padding-bottom: 177.77%; height: 0; }
-  .player-iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-  .player-sub-nudge { padding: 13px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(107,207,156,0.15); }
-  .player-nudge-left { display: flex; align-items: center; gap: 8px; }
-  .player-nudge-left img { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--green); }
-  .player-sub-nudge p { color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 600; line-height: 1.4; }
-  .player-sub-nudge p strong { color: var(--green); display: block; font-size: 12px; }
-  .player-sub-nudge button { background: var(--yellow); color: var(--dark); border: none; padding: 8px 14px; border-radius: 50px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-
-  /* ── MIS GATOS PAGE ── */
-  .gatos-page { padding: 16px; max-width: 600px; margin: 0 auto; }
-
-  .gatos-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .gatos-title { font-family: 'Baloo 2', cursive; font-size: 22px; color: var(--text); }
-
-  .add-gato-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: var(--green); color: white; border: none;
-    padding: 10px 16px; border-radius: 50px;
-    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px;
-    cursor: pointer; transition: background 0.2s, transform 0.1s;
-    box-shadow: 0 4px 12px rgba(107,207,156,0.3);
-  }
-  .add-gato-btn:active { transform: scale(0.95); }
-  .add-gato-btn:hover { background: var(--green-dark); }
-
-  .gatos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-  .gato-card {
-    background: var(--card-bg); border-radius: var(--radius);
-    border: 1.5px solid var(--border); box-shadow: var(--card-shadow);
-    overflow: hidden; cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    animation: fadeInUp 0.3s ease both;
-  }
-  .gato-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(107,207,156,0.18); }
-  .gato-card:active { transform: scale(0.97); }
-
-  .gato-photo-wrap {
-    position: relative; aspect-ratio: 1/1; overflow: hidden;
-    background: var(--green-light);
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  .gato-photo { width: 100%; height: 100%; object-fit: cover; }
-
-  .gato-photo-placeholder { font-size: 52px; opacity: 0.5; }
-
-  .gato-age-badge {
-    position: absolute; bottom: 8px; right: 8px;
-    background: var(--dark); color: var(--yellow);
-    font-size: 11px; font-weight: 700;
-    padding: 3px 8px; border-radius: 50px;
-    border: 1px solid rgba(255,209,102,0.3);
-  }
-
-  .gato-info { padding: 12px; }
-  .gato-name { font-family: 'Baloo 2', cursive; font-size: 16px; color: var(--text); margin-bottom: 2px; }
-  .gato-breed { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
-
-  .gato-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-  .gato-tag {
-    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px;
-    background: var(--green-light); color: var(--green-dark);
-    border: 1px solid rgba(107,207,156,0.3);
-  }
-  .gato-tag.yellow { background: #fff8e1; color: #b8860b; border-color: rgba(255,209,102,0.4); }
-
-  .gatos-empty {
-    text-align: center; padding: 60px 20px;
-    grid-column: 1 / -1;
-  }
-  .gatos-empty-emoji { font-size: 64px; margin-bottom: 16px; }
-  .gatos-empty h3 { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 8px; }
-  .gatos-empty p { color: var(--text-muted); font-size: 14px; font-weight: 500; line-height: 1.5; }
-
-  /* ── GATO MODAL (form + detail) ── */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7); z-index: 250;
-    align-items: flex-end; justify-content: center;
-  }
-  .modal-overlay.show { display: flex; }
-
-  .modal-sheet {
-    background: var(--card-bg); border-radius: 28px 28px 0 0;
-    width: 100%; max-width: 600px;
-    max-height: 92vh; overflow-y: auto;
-    animation: slideUp 0.35s ease;
-    padding: 24px 20px 40px;
-  }
-
-  .modal-handle {
-    width: 40px; height: 4px; background: var(--border);
-    border-radius: 4px; margin: 0 auto 20px;
-  }
-
-  .modal-title { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 20px; text-align: center; }
-
-  /* Photo picker */
-  .photo-picker {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .photo-preview {
-    width: 100px; height: 100px; border-radius: 50%;
-    border: 3px solid var(--green); object-fit: cover;
-    background: var(--green-light);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 44px; cursor: pointer; overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .photo-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-
-  .photo-picker-label {
-    font-size: 12px; font-weight: 700; color: var(--green-dark); cursor: pointer;
-    display: flex; align-items: center; gap: 4px;
-  }
-
-  /* Form fields */
-  .form-group { margin-bottom: 14px; }
-  .form-label { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
-
-  .form-input, .form-select {
-    width: 100%; padding: 12px 14px; border-radius: 12px;
-    border: 2px solid var(--border); background: var(--bg);
-    font-family: 'Quicksand', sans-serif; font-size: 14px; font-weight: 600;
-    color: var(--text); outline: none; transition: border-color 0.2s;
-  }
-  .form-input:focus, .form-select:focus { border-color: var(--green); }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .form-btn-row { display: flex; gap: 10px; margin-top: 20px; }
-
-  .btn-primary {
-    flex: 1; padding: 14px; background: var(--green); color: white; border: none;
-    border-radius: 50px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px;
-    cursor: pointer; transition: background 0.2s, transform 0.1s;
-  }
-  .btn-primary:active { transform: scale(0.97); }
-  .btn-primary:hover { background: var(--green-dark); }
-
-  .btn-secondary {
-    flex: 1; padding: 14px; background: none; border: 2px solid var(--border);
-    color: var(--text-muted); border-radius: 50px;
-    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
-    transition: border-color 0.2s;
-  }
-  .btn-secondary:hover { border-color: var(--green); color: var(--green-dark); }
-
-  /* Detail view */
-  .gato-detail-photo {
-    width: 110px; height: 110px; border-radius: 50%;
-    border: 4px solid var(--green); object-fit: cover;
-    margin: 0 auto 14px; display: block;
-    background: var(--green-light);
-    font-size: 52px; text-align: center; line-height: 110px;
-  }
-
-  .gato-detail-name { font-family: 'Baloo 2', cursive; font-size: 26px; color: var(--text); text-align: center; margin-bottom: 4px; }
-  .gato-detail-breed { color: var(--text-muted); font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 16px; }
-
-  .gato-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-
-  .gato-detail-item {
-    background: var(--bg); border-radius: 14px; padding: 12px;
-    border: 1.5px solid var(--border); text-align: center;
-  }
-  .gato-detail-item-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .gato-detail-item-val { font-family: 'Baloo 2', cursive; font-size: 16px; color: var(--text); }
-
-  .gato-detail-notes {
-    background: var(--bg); border-radius: 14px; padding: 14px;
-    border: 1.5px solid var(--border); margin-bottom: 20px;
-  }
-  .gato-detail-notes-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .gato-detail-notes-text { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; }
-
-  .btn-danger {
-    width: 100%; padding: 14px; background: none; border: 2px solid #ffcdd2;
-    color: #e53935; border-radius: 50px;
-    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
-    transition: background 0.2s;
-  }
-  .btn-danger:hover { background: #ffebee; }
-
-  /* ── LOADING / EMPTY ── */
-  .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 70px 20px; gap: 16px; }
-  .loading-logo { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--green); animation: pulse 1.5s ease-in-out infinite; }
-  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(107,207,156,0.4); } 50% { box-shadow: 0 0 0 14px rgba(107,207,156,0); } }
-  .loading p { color: var(--text-muted); font-weight: 600; font-size: 14px; }
-
-  .empty { text-align: center; padding: 60px 20px; }
-  .empty-emoji { font-size: 52px; margin-bottom: 12px; }
-  .empty h3 { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 6px; }
-  .empty p { color: var(--text-muted); font-size: 14px; font-weight: 500; }
-
-  /* ── TOAST ── */
-  .toast {
-    position: fixed; bottom: 80px; left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--dark); color: white;
-    padding: 10px 20px; border-radius: 50px;
-    font-size: 13px; font-weight: 700; z-index: 400;
-    transition: transform 0.3s ease; white-space: nowrap;
-    border: 1px solid rgba(107,207,156,0.3);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
-
-  .video-card:nth-child(1) { animation-delay: 0.04s; }
-  .video-card:nth-child(2) { animation-delay: 0.08s; }
-  .video-card:nth-child(3) { animation-delay: 0.12s; }
-  .video-card:nth-child(4) { animation-delay: 0.16s; }
-  .video-card:nth-child(5) { animation-delay: 0.20s; }
-  .video-card:nth-child(6) { animation-delay: 0.24s; }
-
-  .gato-card:nth-child(1) { animation-delay: 0.05s; }
-  .gato-card:nth-child(2) { animation-delay: 0.10s; }
-  .gato-card:nth-child(3) { animation-delay: 0.15s; }
-  .gato-card:nth-child(4) { animation-delay: 0.20s; }
+:root {
+  --green: #6BCF9C; --green-dark: #4db882; --green-light: #e8f8f0;
+  --yellow: #FFD166; --yellow-dark: #f0b429;
+  --dark: #2F2F2F; --dark2: #3d3d3d;
+  --card-bg: #ffffff; --text: #2F2F2F; --text-muted: #7a7a7a;
+  --bg: #f4faf7; --border: #e2f4eb;
+  --card-shadow: 0 4px 24px rgba(107,207,156,0.12);
+  --radius: 18px; --nav-h: 64px;
+}
+[data-theme="dark"] {
+  --card-bg: #1e2d28; --text: #f0f0f0; --text-muted: #9ca3af;
+  --bg: #141f1c; --border: #2a3d35; --green-light: #1a2e25;
+  --card-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Quicksand',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; padding-bottom:var(--nav-h); }
+
+/* HEADER */
+.header { background:var(--dark); padding:0 16px; position:sticky; top:0; z-index:100; box-shadow:0 4px 20px rgba(0,0,0,.25); }
+.header-top { display:flex; align-items:center; justify-content:space-between; height:64px; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-img { width:42px; height:42px; border-radius:50%; object-fit:cover; border:2.5px solid var(--green); background:#fff; flex-shrink:0; }
+.logo-text { font-family:'Baloo 2',cursive; color:var(--yellow); font-size:17px; line-height:1.1; }
+.logo-text span { font-size:11px; font-family:'Quicksand',sans-serif; font-weight:600; color:var(--green); display:block; }
+.header-actions { display:flex; gap:8px; align-items:center; }
+.icon-btn { width:36px; height:36px; background:rgba(107,207,156,.15); border:1.5px solid rgba(107,207,156,.3); border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px; transition:background .2s,transform .1s; color:white; }
+.icon-btn:active { transform:scale(.9); }
+.icon-btn:hover { background:rgba(107,207,156,.3); }
+.search-bar { padding:10px 0 14px; }
+.search-input-wrap { position:relative; }
+.search-input { width:100%; padding:11px 16px 11px 42px; border-radius:50px; border:2px solid rgba(107,207,156,.3); background:rgba(255,255,255,.08); font-family:'Quicksand',sans-serif; font-size:14px; font-weight:600; color:white; outline:none; transition:border-color .2s,background .2s; }
+.search-input::placeholder { color:rgba(255,255,255,.4); }
+.search-input:focus { border-color:var(--green); background:rgba(255,255,255,.12); }
+.search-icon { position:absolute; left:15px; top:50%; transform:translateY(-50%); font-size:15px; }
+
+/* BOTTOM NAV */
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; height:var(--nav-h); background:var(--dark); display:flex; align-items:center; justify-content:space-around; border-top:1px solid rgba(107,207,156,.15); z-index:100; box-shadow:0 -4px 20px rgba(0,0,0,.2); }
+.nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:none; background:none; cursor:pointer; padding:8px 0; transition:transform .1s; }
+.nav-btn:active { transform:scale(.92); }
+.nav-icon { font-size:20px; transition:transform .2s; }
+.nav-label { font-family:'Quicksand',sans-serif; font-size:10px; font-weight:700; color:rgba(255,255,255,.4); transition:color .2s; }
+.nav-btn.active .nav-label { color:var(--green); }
+.nav-btn.active .nav-icon { transform:scale(1.15); }
+
+/* PAGES */
+.page { display:none; }
+.page.active { display:block; }
+
+/* TABS */
+.tabs-wrap { background:var(--card-bg); border-bottom:2px solid var(--border); overflow-x:auto; scrollbar-width:none; transition:background .3s; }
+.tabs-wrap::-webkit-scrollbar { display:none; }
+.tabs { display:flex; padding:0 12px; gap:2px; min-width:max-content; }
+.tab { padding:13px 15px; border:none; background:none; cursor:pointer; font-family:'Quicksand',sans-serif; font-size:13px; font-weight:700; color:var(--text-muted); border-bottom:3px solid transparent; transition:all .2s; white-space:nowrap; }
+.tab.active { color:var(--green-dark); border-bottom-color:var(--green); }
+.tab:hover { color:var(--green-dark); }
+
+/* MAIN */
+main { padding:16px; max-width:600px; margin:0 auto; }
+
+/* SUBSCRIBE BANNER */
+.subscribe-banner { background:var(--dark); border-radius:var(--radius); padding:14px 16px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:10px; border:1.5px solid rgba(107,207,156,.2); animation:slideDown .4s ease; }
+.subscribe-banner-left { display:flex; align-items:center; gap:10px; }
+.subscribe-banner img { width:36px; height:36px; border-radius:50%; border:2px solid var(--green); flex-shrink:0; }
+.subscribe-banner p { color:white; font-size:13px; font-weight:700; line-height:1.3; }
+.subscribe-banner p span { font-size:11px; font-weight:500; color:var(--green); display:block; }
+.sub-btn { background:var(--yellow); color:var(--dark); border:none; padding:9px 14px; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:12px; cursor:pointer; white-space:nowrap; transition:transform .1s,background .2s; flex-shrink:0; }
+.sub-btn:active { transform:scale(.95); }
+.sub-btn:hover { background:var(--yellow-dark); }
+
+/* VIDEO GRID */
+.video-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.video-card { background:var(--card-bg); border-radius:var(--radius); overflow:hidden; box-shadow:var(--card-shadow); cursor:pointer; transition:transform .2s,box-shadow .2s; animation:fadeInUp .4s ease both; border:1.5px solid var(--border); }
+.video-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(107,207,156,.2); }
+.video-card:active { transform:scale(.97); }
+.video-thumb { position:relative; aspect-ratio:9/16; overflow:hidden; background:var(--green-light); }
+.video-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .3s; }
+.video-card:hover .video-thumb img { transform:scale(1.05); }
+.play-overlay { position:absolute; inset:0; background:rgba(47,47,47,.3); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+.video-card:hover .play-overlay { opacity:1; }
+.play-btn { width:46px; height:46px; background:var(--yellow); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; box-shadow:0 4px 16px rgba(0,0,0,.3); }
+.fav-btn { position:absolute; top:8px; right:8px; width:30px; height:30px; background:rgba(47,47,47,.55); border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:transform .2s,background .2s; z-index:2; backdrop-filter:blur(4px); }
+.fav-btn:active { transform:scale(.8); }
+.fav-btn.active { background:rgba(255,209,102,.85); }
+.locked-overlay { position:absolute; inset:0; background:rgba(47,47,47,.75); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; backdrop-filter:blur(2px); }
+.locked-overlay span:first-child { font-size:28px; }
+.locked-overlay span:last-child { color:var(--yellow); font-size:11px; font-weight:700; text-align:center; padding:0 10px; line-height:1.3; }
+.video-info { padding:10px 11px 12px; }
+.video-title { font-size:12px; font-weight:700; line-height:1.4; color:var(--text); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-bottom:7px; }
+.video-tag { display:inline-block; padding:3px 9px; border-radius:50px; font-size:10px; font-weight:700; background:var(--green-light); color:var(--green-dark); border:1px solid rgba(107,207,156,.3); }
+
+/* PAYWALL */
+.paywall-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:200; align-items:flex-end; justify-content:center; }
+.paywall-overlay.show { display:flex; }
+.paywall-card { background:var(--card-bg); border-radius:28px 28px 0 0; padding:32px 24px 44px; width:100%; max-width:600px; text-align:center; animation:slideUp .4s ease; }
+.paywall-logo { width:72px; height:72px; border-radius:50%; border:3px solid var(--green); margin:0 auto 14px; display:block; }
+.paywall-badge { display:inline-block; background:var(--green-light); color:var(--green-dark); font-size:12px; font-weight:700; padding:4px 12px; border-radius:50px; margin-bottom:14px; }
+.paywall-card h2 { font-family:'Baloo 2',cursive; font-size:24px; color:var(--text); margin-bottom:8px; }
+.paywall-card p { color:var(--text-muted); font-size:14px; font-weight:600; line-height:1.6; margin-bottom:24px; }
+.paywall-btn-primary { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:16px; background:#FF0000; color:white; border:none; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:12px; transition:transform .1s; box-shadow:0 4px 20px rgba(255,0,0,.25); }
+.paywall-btn-primary:active { transform:scale(.98); }
+.paywall-btn-secondary { background:none; border:2px solid var(--green); color:var(--green-dark); padding:14px; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:14px; cursor:pointer; width:100%; transition:background .2s,color .2s; }
+.paywall-btn-secondary:hover { background:var(--green); color:white; }
+
+/* PLAYER */
+.player-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:300; align-items:center; justify-content:center; padding:16px; }
+.player-modal.show { display:flex; }
+.player-wrap { background:var(--dark); border-radius:22px; overflow:hidden; width:100%; max-width:380px; position:relative; animation:popIn .3s ease; border:2px solid rgba(107,207,156,.2); }
+.player-close { position:absolute; top:12px; right:12px; width:32px; height:32px; background:rgba(255,255,255,.12); border:none; border-radius:50%; color:white; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10; transition:background .2s; }
+.player-close:hover { background:rgba(255,255,255,.25); }
+.player-iframe-wrap { position:relative; padding-bottom:177.77%; height:0; }
+.player-iframe-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+.player-sub-nudge { padding:13px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; border-top:1px solid rgba(107,207,156,.15); }
+.player-nudge-left { display:flex; align-items:center; gap:8px; }
+.player-nudge-left img { width:30px; height:30px; border-radius:50%; border:1.5px solid var(--green); }
+.player-sub-nudge p { color:rgba(255,255,255,.85); font-size:11px; font-weight:600; line-height:1.4; }
+.player-sub-nudge p strong { color:var(--green); display:block; font-size:12px; }
+.player-sub-nudge button { background:var(--yellow); color:var(--dark); border:none; padding:8px 14px; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:12px; cursor:pointer; white-space:nowrap; flex-shrink:0; }
+
+/* SECTION PAGES */
+.section-page { padding:16px; max-width:600px; margin:0 auto; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.section-title { font-family:'Baloo 2',cursive; font-size:22px; color:var(--text); }
+
+/* GATOS */
+.gatos-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.gato-card { background:var(--card-bg); border-radius:var(--radius); border:1.5px solid var(--border); box-shadow:var(--card-shadow); overflow:hidden; cursor:pointer; transition:transform .2s,box-shadow .2s; animation:fadeInUp .3s ease both; }
+.gato-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(107,207,156,.18); }
+.gato-card:active { transform:scale(.97); }
+.gato-photo-wrap { position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--green-light); display:flex; align-items:center; justify-content:center; }
+.gato-photo { width:100%; height:100%; object-fit:cover; }
+.gato-photo-placeholder { font-size:52px; opacity:.5; }
+.gato-age-badge { position:absolute; bottom:8px; right:8px; background:var(--dark); color:var(--yellow); font-size:11px; font-weight:700; padding:3px 8px; border-radius:50px; border:1px solid rgba(255,209,102,.3); }
+.gato-info { padding:12px; }
+.gato-name { font-family:'Baloo 2',cursive; font-size:16px; color:var(--text); margin-bottom:2px; }
+.gato-breed { font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:8px; }
+.gato-tags { display:flex; gap:4px; flex-wrap:wrap; }
+.gato-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:50px; background:var(--green-light); color:var(--green-dark); border:1px solid rgba(107,207,156,.3); }
+.gato-tag.yellow { background:#fff8e1; color:#b8860b; border-color:rgba(255,209,102,.4); }
+
+/* EMPTY STATE */
+.empty-state { text-align:center; padding:60px 20px; grid-column:1/-1; }
+.empty-state-emoji { font-size:64px; margin-bottom:16px; }
+.empty-state h3 { font-family:'Baloo 2',cursive; font-size:20px; color:var(--text); margin-bottom:8px; }
+.empty-state p { color:var(--text-muted); font-size:14px; font-weight:500; line-height:1.5; }
+
+/* ADD BTN */
+.add-btn { display:flex; align-items:center; gap:6px; background:var(--green); color:white; border:none; padding:10px 16px; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:13px; cursor:pointer; transition:background .2s,transform .1s; box-shadow:0 4px 12px rgba(107,207,156,.3); }
+.add-btn:active { transform:scale(.95); }
+.add-btn:hover { background:var(--green-dark); }
+
+/* MODALS */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:250; align-items:flex-end; justify-content:center; }
+.modal-overlay.show { display:flex; }
+.modal-sheet { background:var(--card-bg); border-radius:28px 28px 0 0; width:100%; max-width:600px; max-height:92vh; overflow-y:auto; animation:slideUp .35s ease; padding:24px 20px 40px; }
+.modal-handle { width:40px; height:4px; background:var(--border); border-radius:4px; margin:0 auto 20px; }
+.modal-title { font-family:'Baloo 2',cursive; font-size:20px; color:var(--text); margin-bottom:20px; text-align:center; }
+
+/* FORM */
+.photo-picker { display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:20px; }
+.photo-preview { width:100px; height:100px; border-radius:50%; border:3px solid var(--green); object-fit:cover; background:var(--green-light); display:flex; align-items:center; justify-content:center; font-size:44px; cursor:pointer; overflow:hidden; transition:border-color .2s; }
+.photo-preview img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.photo-picker-label { font-size:12px; font-weight:700; color:var(--green-dark); cursor:pointer; display:flex; align-items:center; gap:4px; }
+.form-group { margin-bottom:14px; }
+.form-label { font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px; display:block; text-transform:uppercase; letter-spacing:.5px; }
+.form-input, .form-select { width:100%; padding:12px 14px; border-radius:12px; border:2px solid var(--border); background:var(--bg); font-family:'Quicksand',sans-serif; font-size:14px; font-weight:600; color:var(--text); outline:none; transition:border-color .2s; }
+.form-input:focus, .form-select:focus { border-color:var(--green); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-btn-row { display:flex; gap:10px; margin-top:20px; }
+.btn-primary { flex:1; padding:14px; background:var(--green); color:white; border:none; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:14px; cursor:pointer; transition:background .2s,transform .1s; }
+.btn-primary:active { transform:scale(.97); }
+.btn-primary:hover { background:var(--green-dark); }
+.btn-secondary { flex:1; padding:14px; background:none; border:2px solid var(--border); color:var(--text-muted); border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:14px; cursor:pointer; transition:border-color .2s; }
+.btn-secondary:hover { border-color:var(--green); color:var(--green-dark); }
+.btn-danger { width:100%; padding:14px; background:none; border:2px solid #ffcdd2; color:#e53935; border-radius:50px; font-family:'Quicksand',sans-serif; font-weight:700; font-size:14px; cursor:pointer; transition:background .2s; }
+.btn-danger:hover { background:#ffebee; }
+
+/* GATO DETAIL */
+.gato-detail-photo { width:110px; height:110px; border-radius:50%; border:4px solid var(--green); object-fit:cover; margin:0 auto 14px; display:block; background:var(--green-light); text-align:center; line-height:110px; font-size:52px; }
+.gato-detail-name { font-family:'Baloo 2',cursive; font-size:26px; color:var(--text); text-align:center; margin-bottom:4px; }
+.gato-detail-breed { color:var(--text-muted); font-size:14px; font-weight:600; text-align:center; margin-bottom:16px; }
+.gato-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.gato-detail-item { background:var(--bg); border-radius:14px; padding:12px; border:1.5px solid var(--border); text-align:center; }
+.gato-detail-item-label { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.gato-detail-item-val { font-family:'Baloo 2',cursive; font-size:16px; color:var(--text); }
+.gato-detail-notes { background:var(--bg); border-radius:14px; padding:14px; border:1.5px solid var(--border); margin-bottom:20px; }
+.gato-detail-notes-label { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.gato-detail-notes-text { font-size:13px; font-weight:600; color:var(--text); line-height:1.5; }
+
+/* CALCULADORA */
+.tool-card { background:var(--card-bg); border-radius:var(--radius); padding:20px; border:1.5px solid var(--border); box-shadow:var(--card-shadow); }
+.tool-desc { color:var(--text-muted); font-size:13px; font-weight:600; line-height:1.5; margin-bottom:20px; }
+.calc-resultado { margin-top:20px; background:var(--dark); border-radius:var(--radius); padding:20px; text-align:center; animation:fadeInUp .3s ease; }
+.calc-resultado h3 { font-family:'Baloo 2',cursive; font-size:18px; color:var(--green); margin-bottom:16px; }
+.calc-amounts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+.calc-amount-item { background:rgba(107,207,156,.1); border-radius:14px; padding:14px; text-align:center; border:1px solid rgba(107,207,156,.2); }
+.calc-amount-label { font-size:10px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.calc-amount-val { font-family:'Baloo 2',cursive; font-size:22px; color:white; }
+.calc-amount-unit { font-size:11px; color:rgba(255,255,255,.6); font-weight:600; }
+.calc-tip { font-size:12px; color:rgba(255,255,255,.7); font-weight:600; line-height:1.5; background:rgba(255,209,102,.1); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,209,102,.2); }
+
+/* CALENDARIO */
+.evento-group { margin-bottom:24px; }
+.evento-group-title { font-family:'Baloo 2',cursive; font-size:14px; color:var(--text-muted); margin-bottom:10px; text-transform:uppercase; letter-spacing:.5px; }
+.evento-card { background:var(--card-bg); border-radius:14px; padding:14px 16px; border:1.5px solid var(--border); box-shadow:var(--card-shadow); display:flex; align-items:center; gap:12px; margin-bottom:8px; cursor:pointer; transition:transform .15s; }
+.evento-card:active { transform:scale(.98); }
+.evento-card.urgent { border-color:rgba(255,100,100,.3); background:rgba(255,100,100,.04); }
+.evento-card.soon { border-color:rgba(255,209,102,.4); background:rgba(255,209,102,.05); }
+.evento-card.ok { border-color:rgba(107,207,156,.3); }
+.evento-icon { font-size:28px; flex-shrink:0; }
+.evento-info { flex:1; }
+.evento-tipo { font-weight:700; font-size:14px; color:var(--text); margin-bottom:2px; }
+.evento-meta { font-size:12px; color:var(--text-muted); font-weight:600; }
+.evento-badge { font-size:11px; font-weight:700; padding:3px 10px; border-radius:50px; flex-shrink:0; }
+.evento-badge.urgent { background:rgba(255,100,100,.15); color:#e53935; }
+.evento-badge.soon { background:rgba(255,209,102,.2); color:#b8860b; }
+.evento-badge.ok { background:var(--green-light); color:var(--green-dark); }
+
+/* LOADING */
+.loading { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:70px 20px; gap:16px; }
+.loading-logo { width:64px; height:64px; border-radius:50%; border:3px solid var(--green); animation:pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(107,207,156,.4); } 50% { box-shadow:0 0 0 14px rgba(107,207,156,0); } }
+.loading p { color:var(--text-muted); font-weight:600; font-size:14px; }
+.empty { text-align:center; padding:60px 20px; }
+.empty-emoji { font-size:52px; margin-bottom:12px; }
+.empty h3 { font-family:'Baloo 2',cursive; font-size:20px; color:var(--text); margin-bottom:6px; }
+.empty p { color:var(--text-muted); font-size:14px; font-weight:500; }
+
+/* TOAST */
+.toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--dark); color:white; padding:10px 20px; border-radius:50px; font-size:13px; font-weight:700; z-index:400; transition:transform .3s ease; white-space:nowrap; border:1px solid rgba(107,207,156,.3); box-shadow:0 4px 20px rgba(0,0,0,.3); }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ANIMATIONS */
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+@keyframes popIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+.video-card:nth-child(1){animation-delay:.04s} .video-card:nth-child(2){animation-delay:.08s}
+.video-card:nth-child(3){animation-delay:.12s} .video-card:nth-child(4){animation-delay:.16s}
+.gato-card:nth-child(1){animation-delay:.05s} .gato-card:nth-child(2){animation-delay:.10s}
 </style>
 </head>
 <body>
@@ -526,14 +259,11 @@
   <div class="header-top">
     <div class="logo">
       <img class="logo-img" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="El Michi Experto">
-      <div class="logo-text">
-        El Michi Experto
-        <span>Consejos para dueños de gatos</span>
-      </div>
+      <div class="logo-text">El Michi Experto<span>Consejos para dueños de gatos</span></div>
     </div>
     <div class="header-actions">
-      <button class="icon-btn" id="favToggle" title="Favoritos" onclick="toggleFavView()">🤍</button>
-      <button class="icon-btn" id="themeToggle" title="Modo oscuro" onclick="toggleTheme()">🌙</button>
+      <button class="icon-btn" id="favToggle" onclick="toggleFavView()">🤍</button>
+      <button class="icon-btn" id="themeToggle" onclick="toggleTheme()">🌙</button>
     </div>
   </div>
   <div class="search-bar" id="searchBarWrap">
@@ -544,14 +274,14 @@
   </div>
 </header>
 
-<!-- TABS (videos page) -->
+<!-- TABS -->
 <div class="tabs-wrap" id="tabsWrap">
   <div class="tabs">
-    <button class="tab active" onclick="selectTab('all', this)">🐾 Todos</button>
-    <button class="tab" onclick="selectTab('PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr', this)">😼 Comportamiento</button>
-    <button class="tab" onclick="selectTab('PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd', this)">🍗 Alimentación</button>
-    <button class="tab" onclick="selectTab('PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb', this)">🛁 Cuidados</button>
-    <button class="tab" onclick="selectTab('PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer', this)">🧸 Juegos</button>
+    <button class="tab active" onclick="selectTab('all',this)">🐾 Todos</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr',this)">😼 Comportamiento</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd',this)">🍗 Alimentación</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb',this)">🛁 Cuidados</button>
+    <button class="tab" onclick="selectTab('PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer',this)">🧸 Juegos</button>
   </div>
 </div>
 
@@ -567,26 +297,89 @@
 
 <!-- PAGE: MIS GATOS -->
 <div class="page" id="pageMisGatos">
-  <div class="gatos-page">
-    <div class="gatos-header">
-      <h2 class="gatos-title">🐱 Mis Gatos</h2>
-      <button class="add-gato-btn" onclick="openGatoForm()">+ Añadir gato</button>
+  <div class="section-page">
+    <div class="section-header">
+      <h2 class="section-title">🐱 Mis Gatos</h2>
+      <button class="add-btn" onclick="openGatoForm()">+ Añadir gato</button>
     </div>
-    <div class="gatos-grid" id="gatosGrid">
-      <!-- populated by JS -->
+    <div class="gatos-grid" id="gatosGrid"></div>
+  </div>
+</div>
+
+<!-- PAGE: CALCULADORA -->
+<div class="page" id="pageCalculadora">
+  <div class="section-page">
+    <h2 class="section-title" style="margin-bottom:16px">⚖️ Calculadora de alimentación</h2>
+    <div class="tool-card">
+      <p class="tool-desc">Calcula la cantidad diaria de comida que necesita tu gato según su peso y estilo de vida.</p>
+
+      <div class="form-group">
+        <label class="form-label">Peso del gato (kg)</label>
+        <input class="form-input" type="number" id="calcPeso" placeholder="Ej: 4.5" step="0.1" min="0.1" max="30">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Edad</label>
+        <select class="form-select" id="calcEdad">
+          <option value="cachorro">Cachorro (menos de 1 año)</option>
+          <option value="adulto" selected>Adulto (1 a 7 años)</option>
+          <option value="senior">Senior (más de 7 años)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nivel de actividad</label>
+        <select class="form-select" id="calcActividad">
+          <option value="sedentario">Sedentario (apenas se mueve)</option>
+          <option value="normal" selected>Normal (juega un poco)</option>
+          <option value="activo">Activo (juega mucho)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Castrado/a</label>
+          <select class="form-select" id="calcCastrado">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tipo de comida</label>
+          <select class="form-select" id="calcTipo">
+            <option value="seco">Solo pienso seco</option>
+            <option value="humedo">Solo comida húmeda</option>
+            <option value="mixto">Mixta (50/50)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:8px" onclick="calcularAlimentacion()">Calcular 🐾</button>
+      <div id="calcResultado" style="display:none" class="calc-resultado"></div>
     </div>
+  </div>
+</div>
+
+<!-- PAGE: CALENDARIO -->
+<div class="page" id="pageCalendario">
+  <div class="section-page">
+    <div class="section-header">
+      <h2 class="section-title">📅 Calendario</h2>
+      <button class="add-btn" onclick="openEventoForm()">+ Añadir</button>
+    </div>
+    <div id="calendarioContent"></div>
   </div>
 </div>
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn active" id="navVideos" onclick="switchPage('videos')">
-    <span class="nav-icon">▶️</span>
-    <span class="nav-label">Videos</span>
+    <span class="nav-icon">▶️</span><span class="nav-label">Videos</span>
   </button>
   <button class="nav-btn" id="navMisGatos" onclick="switchPage('misGatos')">
-    <span class="nav-icon">🐱</span>
-    <span class="nav-label">Mis Gatos</span>
+    <span class="nav-icon">🐱</span><span class="nav-label">Mis Gatos</span>
+  </button>
+  <button class="nav-btn" id="navCalculadora" onclick="switchPage('calculadora')">
+    <span class="nav-icon">⚖️</span><span class="nav-label">Comida</span>
+  </button>
+  <button class="nav-btn" id="navCalendario" onclick="switchPage('calendario')">
+    <span class="nav-icon">📅</span><span class="nav-label">Calendario</span>
   </button>
 </nav>
 
@@ -596,13 +389,13 @@
     <img class="paywall-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="El Michi Experto">
     <div class="paywall-badge">🔒 Contenido exclusivo</div>
     <h2>¡Hay más consejos!</h2>
-    <p>Ya has visto los primeros videos gratuitos.<br>Suscríbete al canal para desbloquear todos los consejos del Michi Experto. ¡Es gratis y en YouTube!</p>
+    <p>Ya has visto los primeros videos gratuitos.<br>Suscríbete al canal para desbloquear todos los consejos del Michi Experto. ¡Es gratis!</p>
     <button class="paywall-btn-primary" onclick="goSubscribe()">▶ &nbsp;Suscribirme en YouTube</button>
     <button class="paywall-btn-secondary" onclick="unlockAll()">Ya estoy suscrito ✓</button>
   </div>
 </div>
 
-<!-- PLAYER MODAL -->
+<!-- PLAYER -->
 <div class="player-modal" id="playerModal">
   <div class="player-wrap">
     <button class="player-close" onclick="closePlayer()">✕</button>
@@ -619,23 +412,20 @@
   </div>
 </div>
 
-<!-- GATO FORM MODAL -->
+<!-- GATO FORM -->
 <div class="modal-overlay" id="gatoFormModal">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <h3 class="modal-title" id="gatoFormTitle">Añadir gato</h3>
-
     <div class="photo-picker">
       <div class="photo-preview" id="photoPreview" onclick="document.getElementById('photoInput').click()">🐱</div>
       <label class="photo-picker-label" onclick="document.getElementById('photoInput').click()">📷 Añadir foto</label>
       <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhoto(this)">
     </div>
-
     <div class="form-group">
       <label class="form-label">Nombre *</label>
       <input class="form-input" type="text" id="gatoNombre" placeholder="¿Cómo se llama tu gato?">
     </div>
-
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Raza</label>
@@ -650,7 +440,6 @@
         </select>
       </div>
     </div>
-
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Fecha de nacimiento</label>
@@ -661,7 +450,6 @@
         <input class="form-input" type="number" id="gatoPeso" placeholder="Ej: 4.5" step="0.1" min="0">
       </div>
     </div>
-
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Castrado/a</label>
@@ -681,12 +469,10 @@
         </select>
       </div>
     </div>
-
     <div class="form-group">
       <label class="form-label">Notas</label>
       <input class="form-input" type="text" id="gatoNotas" placeholder="Alergias, medicación, cosas a recordar...">
     </div>
-
     <div class="form-btn-row">
       <button class="btn-secondary" onclick="closeGatoForm()">Cancelar</button>
       <button class="btn-primary" onclick="saveGato()">Guardar 🐾</button>
@@ -694,10 +480,59 @@
   </div>
 </div>
 
-<!-- GATO DETAIL MODAL -->
+<!-- GATO DETAIL -->
 <div class="modal-overlay" id="gatoDetailModal">
-  <div class="modal-sheet" id="gatoDetailContent">
-    <!-- populated by JS -->
+  <div class="modal-sheet" id="gatoDetailContent"></div>
+</div>
+
+<!-- EVENTO FORM -->
+<div class="modal-overlay" id="eventoFormModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3 class="modal-title" id="eventoFormTitle">Añadir recordatorio</h3>
+    <div class="form-group">
+      <label class="form-label">Tipo de cuidado</label>
+      <select class="form-select" id="eventoTipo">
+        <option value="💉 Vacuna">💉 Vacuna</option>
+        <option value="🐛 Desparasitación">🐛 Desparasitación</option>
+        <option value="🏥 Visita al veterinario">🏥 Visita al veterinario</option>
+        <option value="💊 Medicación">💊 Medicación</option>
+        <option value="🛁 Baño">🛁 Baño</option>
+        <option value="✂️ Corte de uñas">✂️ Corte de uñas</option>
+        <option value="🪮 Peluquería">🪮 Peluquería</option>
+        <option value="📋 Otro">📋 Otro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Gato</label>
+      <select class="form-select" id="eventoGato">
+        <option value="">— Sin asignar —</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Fecha</label>
+        <input class="form-input" type="date" id="eventoFecha">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Repetir cada</label>
+        <select class="form-select" id="eventoRepetir">
+          <option value="">No repetir</option>
+          <option value="30">1 mes</option>
+          <option value="90">3 meses</option>
+          <option value="180">6 meses</option>
+          <option value="365">1 año</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notas</label>
+      <input class="form-input" type="text" id="eventoNotas" placeholder="Ej: Vacuna antirrábica, clínica Dr. García...">
+    </div>
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeEventoForm()">Cancelar</button>
+      <button class="btn-primary" onclick="saveEvento()">Guardar 📅</button>
+    </div>
   </div>
 </div>
 
@@ -708,98 +543,101 @@ const API_KEY = 'AIzaSyDCgwsHVBntOKOTGsStCpXlyLXFmAerroI'; // 👈 REEMPLAZA CON
 const CHANNEL_URL = 'https://www.youtube.com/@ELMICHIEXPERTO';
 const LOGO_URL = 'https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj';
 const FREE_VIDEOS = 6;
-
 const PLAYLISTS = {
-  'PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr': 'Comportamiento',
-  'PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd': 'Alimentación',
-  'PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb': 'Cuidados',
-  'PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer': 'Juegos'
+  'PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr':'Comportamiento',
+  'PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd':'Alimentación',
+  'PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb':'Cuidados',
+  'PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer':'Juegos'
 };
 
-// ── STATE ──
-let allVideos = [], filteredVideos = [];
-let favorites = JSON.parse(localStorage.getItem('michi_favs') || '[]');
-let unlocked = localStorage.getItem('michi_unlocked') === 'true';
-let currentTab = 'all', showingFavs = false;
-let gatos = JSON.parse(localStorage.getItem('michi_gatos') || '[]');
-let editingGatoId = null;
-let currentPhotoBase64 = null;
+let allVideos=[], filteredVideos=[];
+let favorites=JSON.parse(localStorage.getItem('michi_favs')||'[]');
+let unlocked=localStorage.getItem('michi_unlocked')==='true';
+let currentTab='all', showingFavs=false;
+let gatos=JSON.parse(localStorage.getItem('michi_gatos')||'[]');
+let eventos=JSON.parse(localStorage.getItem('michi_eventos')||'[]');
+let editingGatoId=null, editingEventoId=null;
+let currentPhotoBase64=null;
 
 // ── NAVIGATION ──
 function switchPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const searchBar = document.getElementById('searchBarWrap');
-  const tabsWrap = document.getElementById('tabsWrap');
-  const favToggle = document.getElementById('favToggle');
-
-  if (page === 'videos') {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const search=document.getElementById('searchBarWrap');
+  const tabs=document.getElementById('tabsWrap');
+  const favBtn=document.getElementById('favToggle');
+  search.style.display='none'; tabs.style.display='none'; favBtn.style.display='none';
+  if(page==='videos'){
     document.getElementById('pageVideos').classList.add('active');
     document.getElementById('navVideos').classList.add('active');
-    searchBar.style.display = '';
-    tabsWrap.style.display = '';
-    favToggle.style.display = '';
-  } else if (page === 'misGatos') {
+    search.style.display=''; tabs.style.display=''; favBtn.style.display='';
+  } else if(page==='misGatos'){
     document.getElementById('pageMisGatos').classList.add('active');
     document.getElementById('navMisGatos').classList.add('active');
-    searchBar.style.display = 'none';
-    tabsWrap.style.display = 'none';
-    favToggle.style.display = 'none';
     renderGatos();
+  } else if(page==='calculadora'){
+    document.getElementById('pageCalculadora').classList.add('active');
+    document.getElementById('navCalculadora').classList.add('active');
+  } else if(page==='calendario'){
+    document.getElementById('pageCalendario').classList.add('active');
+    document.getElementById('navCalendario').classList.add('active');
+    renderCalendario();
   }
 }
 
 // ── VIDEOS ──
 async function fetchPlaylist(playlistId) {
-  const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`);
-  const data = await res.json();
-  if (!data.items) return [];
-  return data.items.map(item => ({
-    id: item.snippet.resourceId.videoId,
-    title: item.snippet.title,
-    thumb: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.medium?.url || '',
-    category: PLAYLISTS[playlistId],
-    playlistId
-  }));
+  const res=await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`);
+  const data=await res.json();
+  if(!data.items) return [];
+  const PRIVATE=['private video','video privado','deleted video','video eliminado'];
+  return data.items
+    .filter(item=>{
+      const title=(item.snippet.title||'').toLowerCase().trim();
+      const thumb=item.snippet.thumbnails?.high?.url||item.snippet.thumbnails?.medium?.url||'';
+      return !PRIVATE.includes(title) && thumb!=='';
+    })
+    .map(item=>({
+      id:item.snippet.resourceId.videoId,
+      title:item.snippet.title,
+      thumb:item.snippet.thumbnails?.high?.url||item.snippet.thumbnails?.medium?.url||'',
+      category:PLAYLISTS[playlistId], playlistId
+    }));
 }
 
 async function loadAllVideos() {
   try {
-    const results = await Promise.all(Object.keys(PLAYLISTS).map(fetchPlaylist));
-    const seen = new Set();
-    allVideos = results.flat().filter(v => { if (seen.has(v.id)) return false; seen.add(v.id); return true; });
-    filteredVideos = [...allVideos];
+    const results=await Promise.all(Object.keys(PLAYLISTS).map(fetchPlaylist));
+    const seen=new Set();
+    allVideos=results.flat().filter(v=>{if(seen.has(v.id))return false;seen.add(v.id);return true;});
+    filteredVideos=[...allVideos];
     renderVideos(filteredVideos);
-  } catch(e) {
-    document.getElementById('mainContent').innerHTML = `<div class="empty"><div class="empty-emoji">⚠️</div><h3>Error al cargar</h3><p>Revisa que la API Key sea correcta.</p></div>`;
+  } catch(e){
+    document.getElementById('mainContent').innerHTML=`<div class="empty"><div class="empty-emoji">⚠️</div><h3>Error al cargar</h3><p>Revisa que la API Key sea correcta.</p></div>`;
   }
 }
 
 function renderVideos(videos) {
-  const main = document.getElementById('mainContent');
-  if (!videos.length) {
-    main.innerHTML = `<div class="empty"><div class="empty-emoji">🔍</div><h3>Sin resultados</h3><p>Prueba con otras palabras clave.</p></div>`;
-    return;
-  }
-  const banner = (!unlocked && !showingFavs) ? `
+  const main=document.getElementById('mainContent');
+  if(!videos.length){main.innerHTML=`<div class="empty"><div class="empty-emoji">🔍</div><h3>Sin resultados</h3><p>Prueba con otras palabras clave.</p></div>`;return;}
+  const banner=(!unlocked&&!showingFavs)?`
     <div class="subscribe-banner">
       <div class="subscribe-banner-left">
         <img src="${LOGO_URL}" alt="logo">
         <p>¡Nuevo video cada semana! 🐱<span>Suscríbete para no perderte ninguno</span></p>
       </div>
       <button class="sub-btn" onclick="goSubscribe()">Suscribirme</button>
-    </div>` : '';
-
-  const cards = videos.map((v, i) => {
-    const isLocked = !unlocked && i >= FREE_VIDEOS;
-    const isFav = favorites.includes(v.id);
-    return `<div class="video-card" onclick="${isLocked ? 'showPaywall()' : `playVideo('${v.id}')`}">
+    </div>`:'';
+  const cards=videos.map((v,i)=>{
+    const isLocked=!unlocked&&i>=FREE_VIDEOS;
+    const isFav=favorites.includes(v.id);
+    return `<div class="video-card" onclick="${isLocked?'showPaywall()':`playVideo('${v.id}')`}">
       <div class="video-thumb">
         <img src="${v.thumb}" alt="${v.title}" loading="lazy">
         ${isLocked
-          ? `<div class="locked-overlay"><span>🔒</span><span>Suscríbete para ver</span></div>`
-          : `<div class="play-overlay"><div class="play-btn">▶</div></div>
-             <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation();toggleFav('${v.id}')">${isFav ? '⭐' : '☆'}</button>`}
+          ?`<div class="locked-overlay"><span>🔒</span><span>Suscríbete para ver</span></div>`
+          :`<div class="play-overlay"><div class="play-btn">▶</div></div>
+            <button class="fav-btn ${isFav?'active':''}" onclick="event.stopPropagation();toggleFav('${v.id}')">${isFav?'⭐':'☆'}</button>`}
       </div>
       <div class="video-info">
         <div class="video-title">${v.title}</div>
@@ -807,306 +645,354 @@ function renderVideos(videos) {
       </div>
     </div>`;
   }).join('');
-
-  main.innerHTML = banner + `<div class="video-grid">${cards}</div>`;
+  main.innerHTML=banner+`<div class="video-grid">${cards}</div>`;
 }
 
-function selectTab(id, btn) {
-  currentTab = id; showingFavs = false;
-  document.getElementById('favToggle').textContent = '🤍';
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+function selectTab(id,btn){
+  currentTab=id; showingFavs=false;
+  document.getElementById('favToggle').textContent='🤍';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('searchInput').value = '';
-  filteredVideos = id === 'all' ? [...allVideos] : allVideos.filter(v => v.playlistId === id);
+  document.getElementById('searchInput').value='';
+  filteredVideos=id==='all'?[...allVideos]:allVideos.filter(v=>v.playlistId===id);
   renderVideos(filteredVideos);
 }
 
-function handleSearch() {
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  showingFavs = false;
-  document.getElementById('favToggle').textContent = '🤍';
-  const base = currentTab === 'all' ? allVideos : allVideos.filter(v => v.playlistId === currentTab);
-  filteredVideos = q ? base.filter(v => v.title.toLowerCase().includes(q)) : [...base];
+function handleSearch(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  showingFavs=false; document.getElementById('favToggle').textContent='🤍';
+  const base=currentTab==='all'?allVideos:allVideos.filter(v=>v.playlistId===currentTab);
+  filteredVideos=q?base.filter(v=>v.title.toLowerCase().includes(q)):[...base];
   renderVideos(filteredVideos);
 }
 
-function playVideo(id) {
-  document.getElementById('playerIframe').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+function playVideo(id){
+  document.getElementById('playerIframe').src=`https://www.youtube.com/embed/${id}?autoplay=1`;
   document.getElementById('playerModal').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-
-function closePlayer() {
-  document.getElementById('playerIframe').src = '';
+function closePlayer(){
+  document.getElementById('playerIframe').src='';
   document.getElementById('playerModal').classList.remove('show');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-
-function showPaywall() {
-  document.getElementById('paywallOverlay').classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-
-function goSubscribe() {
-  window.open(CHANNEL_URL + '?sub_confirmation=1', '_blank');
+function showPaywall(){ document.getElementById('paywallOverlay').classList.add('show'); document.body.style.overflow='hidden'; }
+function goSubscribe(){
+  window.open(CHANNEL_URL+'?sub_confirmation=1','_blank');
   document.getElementById('paywallOverlay').classList.remove('show');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-
-function unlockAll() {
-  unlocked = true;
-  localStorage.setItem('michi_unlocked', 'true');
+function unlockAll(){
+  unlocked=true; localStorage.setItem('michi_unlocked','true');
   document.getElementById('paywallOverlay').classList.remove('show');
-  document.body.style.overflow = '';
-  renderVideos(filteredVideos);
-  showToast('¡Acceso completo desbloqueado! 🐾');
+  document.body.style.overflow='';
+  renderVideos(filteredVideos); showToast('¡Acceso completo desbloqueado! 🐾');
 }
-
-function toggleFav(id) {
-  const idx = favorites.indexOf(id);
-  if (idx === -1) { favorites.push(id); showToast('⭐ Añadido a favoritos'); }
-  else { favorites.splice(idx, 1); showToast('Eliminado de favoritos'); }
-  localStorage.setItem('michi_favs', JSON.stringify(favorites));
-  showingFavs ? renderVideos(allVideos.filter(v => favorites.includes(v.id))) : renderVideos(filteredVideos);
+function toggleFav(id){
+  const idx=favorites.indexOf(id);
+  if(idx===-1){favorites.push(id);showToast('⭐ Añadido a favoritos');}
+  else{favorites.splice(idx,1);showToast('Eliminado de favoritos');}
+  localStorage.setItem('michi_favs',JSON.stringify(favorites));
+  showingFavs?renderVideos(allVideos.filter(v=>favorites.includes(v.id))):renderVideos(filteredVideos);
 }
-
-function toggleFavView() {
-  showingFavs = !showingFavs;
-  const btn = document.getElementById('favToggle');
-  if (showingFavs) {
-    btn.textContent = '⭐';
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    const favs = allVideos.filter(v => favorites.includes(v.id));
-    if (!favs.length) {
-      document.getElementById('mainContent').innerHTML = `<div class="empty"><div class="empty-emoji">⭐</div><h3>Sin favoritos aún</h3><p>Toca la estrella en los videos que más te gusten.</p></div>`;
-    } else renderVideos(favs);
+function toggleFavView(){
+  showingFavs=!showingFavs;
+  const btn=document.getElementById('favToggle');
+  if(showingFavs){
+    btn.textContent='⭐';
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const favs=allVideos.filter(v=>favorites.includes(v.id));
+    if(!favs.length){document.getElementById('mainContent').innerHTML=`<div class="empty"><div class="empty-emoji">⭐</div><h3>Sin favoritos aún</h3><p>Toca la estrella en los videos que más te gusten.</p></div>`;}
+    else renderVideos(favs);
   } else {
-    btn.textContent = '🤍';
-    renderVideos(filteredVideos);
+    btn.textContent='🤍'; renderVideos(filteredVideos);
     document.querySelector('.tab').classList.add('active');
   }
 }
 
 // ── MIS GATOS ──
-function calcAge(dateStr) {
-  if (!dateStr) return null;
-  const birth = new Date(dateStr);
-  const now = new Date();
-  let years = now.getFullYear() - birth.getFullYear();
-  let months = now.getMonth() - birth.getMonth();
-  if (months < 0) { years--; months += 12; }
-  if (years === 0) return `${months} mes${months !== 1 ? 'es' : ''}`;
-  if (years === 1) return `1 año${months > 0 ? ` ${months}m` : ''}`;
+function calcAge(dateStr){
+  if(!dateStr) return null;
+  const birth=new Date(dateStr), now=new Date();
+  let years=now.getFullYear()-birth.getFullYear();
+  let months=now.getMonth()-birth.getMonth();
+  if(months<0){years--;months+=12;}
+  if(years===0) return `${months} mes${months!==1?'es':''}`;
+  if(years===1) return `1 año${months>0?` ${months}m`:''}`;
   return `${years} años`;
 }
 
-function renderGatos() {
-  const grid = document.getElementById('gatosGrid');
-  if (!gatos.length) {
-    grid.innerHTML = `
-      <div class="gatos-empty">
-        <div class="gatos-empty-emoji">🐱</div>
-        <h3>¡Aún no tienes gatos!</h3>
-        <p>Añade a tu peludo y guarda toda su información en un solo lugar.</p>
-      </div>`;
+function renderGatos(){
+  const grid=document.getElementById('gatosGrid');
+  if(!gatos.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-state-emoji">🐱</div><h3>¡Aún no tienes gatos!</h3><p>Añade a tu peludo y guarda toda su información en un solo lugar.</p></div>`;
     return;
   }
-
-  grid.innerHTML = gatos.map((g, i) => {
-    const age = calcAge(g.fecha);
-    const photoHTML = g.photo
-      ? `<img class="gato-photo" src="${g.photo}" alt="${g.nombre}">`
-      : `<span class="gato-photo-placeholder">🐱</span>`;
-    return `
-      <div class="gato-card" onclick="openGatoDetail(${i})" style="animation-delay:${i * 0.05}s">
-        <div class="gato-photo-wrap">
-          ${photoHTML}
-          ${age ? `<div class="gato-age-badge">${age}</div>` : ''}
+  grid.innerHTML=gatos.map((g,i)=>{
+    const age=calcAge(g.fecha);
+    const photoHTML=g.photo?`<img class="gato-photo" src="${g.photo}" alt="${g.nombre}">`:`<span class="gato-photo-placeholder">🐱</span>`;
+    return `<div class="gato-card" onclick="openGatoDetail(${i})" style="animation-delay:${i*.05}s">
+      <div class="gato-photo-wrap">${photoHTML}${age?`<div class="gato-age-badge">${age}</div>`:''}</div>
+      <div class="gato-info">
+        <div class="gato-name">${g.nombre}</div>
+        <div class="gato-breed">${g.raza||'Raza desconocida'}</div>
+        <div class="gato-tags">
+          ${g.sexo?`<span class="gato-tag">${g.sexo}</span>`:''}
+          ${g.castrado?`<span class="gato-tag yellow">${g.castrado==='Sí'?'✂️ Castrado':'No castrado'}</span>`:''}
         </div>
-        <div class="gato-info">
-          <div class="gato-name">${g.nombre}</div>
-          <div class="gato-breed">${g.raza || 'Raza desconocida'}</div>
-          <div class="gato-tags">
-            ${g.sexo ? `<span class="gato-tag">${g.sexo}</span>` : ''}
-            ${g.castrado ? `<span class="gato-tag yellow">${g.castrado === 'Sí' ? '✂️ Castrado' : 'No castrado'}</span>` : ''}
-          </div>
-        </div>
-      </div>`;
+      </div>
+    </div>`;
   }).join('');
 }
 
-function handlePhoto(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    currentPhotoBase64 = e.target.result;
-    const preview = document.getElementById('photoPreview');
-    preview.innerHTML = `<img src="${currentPhotoBase64}" alt="foto">`;
+function handlePhoto(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    currentPhotoBase64=e.target.result;
+    document.getElementById('photoPreview').innerHTML=`<img src="${currentPhotoBase64}" alt="foto">`;
   };
   reader.readAsDataURL(file);
 }
 
-function openGatoForm(editIdx = null) {
-  editingGatoId = editIdx;
-  currentPhotoBase64 = null;
-  const title = document.getElementById('gatoFormTitle');
-
-  // reset
-  ['gatoNombre','gatoRaza','gatoNotas'].forEach(id => document.getElementById(id).value = '');
-  ['gatoSexo','gatoCastrado','gatoPelaje'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('gatoFecha').value = '';
-  document.getElementById('gatoPeso').value = '';
-  document.getElementById('photoPreview').innerHTML = '🐱';
-
-  if (editIdx !== null) {
-    title.textContent = 'Editar gato';
-    const g = gatos[editIdx];
-    document.getElementById('gatoNombre').value = g.nombre || '';
-    document.getElementById('gatoRaza').value = g.raza || '';
-    document.getElementById('gatoSexo').value = g.sexo || '';
-    document.getElementById('gatoFecha').value = g.fecha || '';
-    document.getElementById('gatoPeso').value = g.peso || '';
-    document.getElementById('gatoCastrado').value = g.castrado || '';
-    document.getElementById('gatoPelaje').value = g.pelaje || '';
-    document.getElementById('gatoNotas').value = g.notas || '';
-    if (g.photo) {
-      currentPhotoBase64 = g.photo;
-      document.getElementById('photoPreview').innerHTML = `<img src="${g.photo}" alt="foto">`;
-    }
-  } else {
-    title.textContent = 'Añadir gato';
+function openGatoForm(editIdx=null){
+  editingGatoId=editIdx; currentPhotoBase64=null;
+  ['gatoNombre','gatoRaza','gatoNotas'].forEach(id=>document.getElementById(id).value='');
+  ['gatoSexo','gatoCastrado','gatoPelaje'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('gatoFecha').value=''; document.getElementById('gatoPeso').value='';
+  document.getElementById('photoPreview').innerHTML='🐱';
+  document.getElementById('gatoFormTitle').textContent=editIdx!==null?'Editar gato':'Añadir gato';
+  if(editIdx!==null){
+    const g=gatos[editIdx];
+    document.getElementById('gatoNombre').value=g.nombre||'';
+    document.getElementById('gatoRaza').value=g.raza||'';
+    document.getElementById('gatoSexo').value=g.sexo||'';
+    document.getElementById('gatoFecha').value=g.fecha||'';
+    document.getElementById('gatoPeso').value=g.peso||'';
+    document.getElementById('gatoCastrado').value=g.castrado||'';
+    document.getElementById('gatoPelaje').value=g.pelaje||'';
+    document.getElementById('gatoNotas').value=g.notas||'';
+    if(g.photo){currentPhotoBase64=g.photo;document.getElementById('photoPreview').innerHTML=`<img src="${g.photo}" alt="foto">`;}
   }
-
   document.getElementById('gatoDetailModal').classList.remove('show');
   document.getElementById('gatoFormModal').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
+}
+function closeGatoForm(){ document.getElementById('gatoFormModal').classList.remove('show'); document.body.style.overflow=''; }
+
+function saveGato(){
+  const nombre=document.getElementById('gatoNombre').value.trim();
+  if(!nombre){showToast('⚠️ El nombre es obligatorio');return;}
+  const gato={nombre,raza:document.getElementById('gatoRaza').value.trim(),sexo:document.getElementById('gatoSexo').value,fecha:document.getElementById('gatoFecha').value,peso:document.getElementById('gatoPeso').value,castrado:document.getElementById('gatoCastrado').value,pelaje:document.getElementById('gatoPelaje').value,notas:document.getElementById('gatoNotas').value.trim(),photo:currentPhotoBase64||(editingGatoId!==null?gatos[editingGatoId].photo:null)};
+  if(editingGatoId!==null){gatos[editingGatoId]=gato;showToast(`✅ ${nombre} actualizado`);}
+  else{gatos.push(gato);showToast(`🐱 ¡${nombre} añadido!`);}
+  localStorage.setItem('michi_gatos',JSON.stringify(gatos));
+  closeGatoForm(); renderGatos();
 }
 
-function closeGatoForm() {
-  document.getElementById('gatoFormModal').classList.remove('show');
-  document.body.style.overflow = '';
-}
-
-function saveGato() {
-  const nombre = document.getElementById('gatoNombre').value.trim();
-  if (!nombre) { showToast('⚠️ El nombre es obligatorio'); return; }
-
-  const gato = {
-    nombre,
-    raza: document.getElementById('gatoRaza').value.trim(),
-    sexo: document.getElementById('gatoSexo').value,
-    fecha: document.getElementById('gatoFecha').value,
-    peso: document.getElementById('gatoPeso').value,
-    castrado: document.getElementById('gatoCastrado').value,
-    pelaje: document.getElementById('gatoPelaje').value,
-    notas: document.getElementById('gatoNotas').value.trim(),
-    photo: currentPhotoBase64 || (editingGatoId !== null ? gatos[editingGatoId].photo : null)
-  };
-
-  if (editingGatoId !== null) {
-    gatos[editingGatoId] = gato;
-    showToast(`✅ ${nombre} actualizado`);
-  } else {
-    gatos.push(gato);
-    showToast(`🐱 ¡${nombre} añadido!`);
-  }
-
-  localStorage.setItem('michi_gatos', JSON.stringify(gatos));
-  closeGatoForm();
-  renderGatos();
-}
-
-function openGatoDetail(idx) {
-  const g = gatos[idx];
-  const age = calcAge(g.fecha);
-  const photoHTML = g.photo
-    ? `<img class="gato-detail-photo" src="${g.photo}" alt="${g.nombre}" style="object-fit:cover">`
-    : `<div class="gato-detail-photo" style="display:flex;align-items:center;justify-content:center;">🐱</div>`;
-
-  const items = [
-    { label: 'Edad', val: age || '—' },
-    { label: 'Sexo', val: g.sexo || '—' },
-    { label: 'Raza', val: g.raza || '—' },
-    { label: 'Peso', val: g.peso ? `${g.peso} kg` : '—' },
-    { label: 'Castrado/a', val: g.castrado || '—' },
-    { label: 'Pelaje', val: g.pelaje || '—' },
-  ].map(item => `
-    <div class="gato-detail-item">
-      <div class="gato-detail-item-label">${item.label}</div>
-      <div class="gato-detail-item-val">${item.val}</div>
-    </div>`).join('');
-
-  document.getElementById('gatoDetailContent').innerHTML = `
+function openGatoDetail(idx){
+  const g=gatos[idx]; const age=calcAge(g.fecha);
+  const photoHTML=g.photo?`<img class="gato-detail-photo" src="${g.photo}" alt="${g.nombre}" style="object-fit:cover">`:`<div class="gato-detail-photo">🐱</div>`;
+  const items=[{label:'Edad',val:age||'—'},{label:'Sexo',val:g.sexo||'—'},{label:'Raza',val:g.raza||'—'},{label:'Peso',val:g.peso?`${g.peso} kg`:'—'},{label:'Castrado/a',val:g.castrado||'—'},{label:'Pelaje',val:g.pelaje||'—'}].map(item=>`<div class="gato-detail-item"><div class="gato-detail-item-label">${item.label}</div><div class="gato-detail-item-val">${item.val}</div></div>`).join('');
+  document.getElementById('gatoDetailContent').innerHTML=`
     <div class="modal-handle"></div>
     ${photoHTML}
     <div class="gato-detail-name">${g.nombre}</div>
-    <div class="gato-detail-breed">${g.raza || 'Raza desconocida'}</div>
+    <div class="gato-detail-breed">${g.raza||'Raza desconocida'}</div>
     <div class="gato-detail-grid">${items}</div>
-    ${g.notas ? `<div class="gato-detail-notes"><div class="gato-detail-notes-label">📝 Notas</div><div class="gato-detail-notes-text">${g.notas}</div></div>` : ''}
+    ${g.notas?`<div class="gato-detail-notes"><div class="gato-detail-notes-label">📝 Notas</div><div class="gato-detail-notes-text">${g.notas}</div></div>`:''}
     <div class="form-btn-row">
       <button class="btn-secondary" onclick="closeGatoDetail()">Cerrar</button>
       <button class="btn-primary" onclick="openGatoForm(${idx})">✏️ Editar</button>
     </div>
-    <div style="margin-top:12px">
-      <button class="btn-danger" onclick="deleteGato(${idx})">🗑️ Eliminar gato</button>
-    </div>`;
-
+    <div style="margin-top:12px"><button class="btn-danger" onclick="deleteGato(${idx})">🗑️ Eliminar gato</button></div>`;
   document.getElementById('gatoDetailModal').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
+}
+function closeGatoDetail(){ document.getElementById('gatoDetailModal').classList.remove('show'); document.body.style.overflow=''; }
+function deleteGato(idx){
+  const nombre=gatos[idx].nombre;
+  if(!confirm(`¿Seguro que quieres eliminar a ${nombre}?`)) return;
+  gatos.splice(idx,1); localStorage.setItem('michi_gatos',JSON.stringify(gatos));
+  closeGatoDetail(); renderGatos(); showToast(`${nombre} eliminado`);
 }
 
-function closeGatoDetail() {
-  document.getElementById('gatoDetailModal').classList.remove('show');
-  document.body.style.overflow = '';
+// ── CALCULADORA ──
+function calcularAlimentacion(){
+  const peso=parseFloat(document.getElementById('calcPeso').value);
+  if(!peso||peso<=0){showToast('⚠️ Introduce el peso de tu gato');return;}
+  const edad=document.getElementById('calcEdad').value;
+  const actividad=document.getElementById('calcActividad').value;
+  const castrado=document.getElementById('calcCastrado').value;
+  const tipo=document.getElementById('calcTipo').value;
+
+  // RER (Resting Energy Requirement) en kcal
+  let rer=70*Math.pow(peso,0.75);
+
+  // Factor multiplicador
+  let factor=1.2;
+  if(edad==='cachorro') factor=2.5;
+  else if(edad==='senior') factor=1.1;
+  else {
+    if(actividad==='sedentario') factor=castrado==='si'?1.0:1.2;
+    else if(actividad==='normal') factor=castrado==='si'?1.2:1.4;
+    else factor=castrado==='si'?1.4:1.6;
+  }
+
+  const kcalDia=Math.round(rer*factor);
+
+  // Conversión a gramos (pienso seco ~350kcal/100g, húmedo ~85kcal/100g)
+  let resultado='';
+  if(tipo==='seco'){
+    const g=Math.round(kcalDia/3.5);
+    resultado=`<div class="calc-amounts"><div class="calc-amount-item"><div class="calc-amount-label">Pienso seco</div><div class="calc-amount-val">${g}</div><div class="calc-amount-unit">gramos/día</div></div><div class="calc-amount-item"><div class="calc-amount-label">Calorías</div><div class="calc-amount-val">${kcalDia}</div><div class="calc-amount-unit">kcal/día</div></div></div>`;
+  } else if(tipo==='humedo'){
+    const g=Math.round(kcalDia/0.85);
+    resultado=`<div class="calc-amounts"><div class="calc-amount-item"><div class="calc-amount-label">Comida húmeda</div><div class="calc-amount-val">${g}</div><div class="calc-amount-unit">gramos/día</div></div><div class="calc-amount-item"><div class="calc-amount-label">Calorías</div><div class="calc-amount-val">${kcalDia}</div><div class="calc-amount-unit">kcal/día</div></div></div>`;
+  } else {
+    const gSeco=Math.round((kcalDia*0.5)/3.5);
+    const gHumedo=Math.round((kcalDia*0.5)/0.85);
+    resultado=`<div class="calc-amounts"><div class="calc-amount-item"><div class="calc-amount-label">Pienso seco</div><div class="calc-amount-val">${gSeco}</div><div class="calc-amount-unit">gramos/día</div></div><div class="calc-amount-item"><div class="calc-amount-label">Comida húmeda</div><div class="calc-amount-val">${gHumedo}</div><div class="calc-amount-unit">gramos/día</div></div></div>`;
+  }
+
+  const tips={
+    cachorro:'Los cachorros necesitan comer 3-4 veces al día. Usa siempre pienso específico para cachorros.',
+    adulto:'Divide la ración en 2 tomas al día. Ajusta si notas que sube o baja de peso.',
+    senior:'Los gatos mayores pueden necesitar comida más digestible. Consulta con tu vet si pierde peso.'
+  };
+
+  const div=document.getElementById('calcResultado');
+  div.style.display='block';
+  div.innerHTML=`<h3>Ración diaria recomendada</h3>${resultado}<div class="calc-tip">💡 ${tips[edad]}</div>`;
 }
 
-function deleteGato(idx) {
-  const nombre = gatos[idx].nombre;
-  if (!confirm(`¿Seguro que quieres eliminar a ${nombre}?`)) return;
-  gatos.splice(idx, 1);
-  localStorage.setItem('michi_gatos', JSON.stringify(gatos));
-  closeGatoDetail();
-  renderGatos();
-  showToast(`${nombre} eliminado`);
+// ── CALENDARIO ──
+function renderCalendario(){
+  const content=document.getElementById('calendarioContent');
+  if(!eventos.length){
+    content.innerHTML=`<div class="empty-state"><div class="empty-state-emoji">📅</div><h3>Sin recordatorios</h3><p>Añade las citas, vacunas y cuidados de tu gato para no olvidarte de nada.</p></div>`;
+    return;
+  }
+  const now=new Date(); now.setHours(0,0,0,0);
+  const sorted=[...eventos].map((e,i)=>({...e,idx:i})).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+
+  const upcoming=sorted.filter(e=>new Date(e.fecha)>=now);
+  const past=sorted.filter(e=>new Date(e.fecha)<now);
+
+  let html='';
+  if(upcoming.length){
+    html+=`<div class="evento-group"><div class="evento-group-title">Próximos</div>`;
+    html+=upcoming.map(e=>eventoCard(e,now)).join('');
+    html+=`</div>`;
+  }
+  if(past.length){
+    html+=`<div class="evento-group"><div class="evento-group-title">Pasados</div>`;
+    html+=past.map(e=>eventoCard(e,now)).join('');
+    html+=`</div>`;
+  }
+  content.innerHTML=html;
+}
+
+function eventoCard(e,now){
+  const fecha=new Date(e.fecha); fecha.setHours(0,0,0,0);
+  const diff=Math.round((fecha-now)/(1000*60*60*24));
+  let cls='ok', badge='';
+  if(diff<0){cls=''; badge=`<span class="evento-badge" style="background:rgba(150,150,150,.15);color:#888">Pasado</span>`;}
+  else if(diff===0){cls='urgent';badge=`<span class="evento-badge urgent">¡Hoy!</span>`;}
+  else if(diff<=7){cls='urgent';badge=`<span class="evento-badge urgent">En ${diff}d</span>`;}
+  else if(diff<=30){cls='soon';badge=`<span class="evento-badge soon">En ${diff}d</span>`;}
+  else{badge=`<span class="evento-badge ok">${formatDate(e.fecha)}</span>`;}
+  const emoji=e.tipo.split(' ')[0];
+  return `<div class="evento-card ${cls}" onclick="deleteEvento(${e.idx})">
+    <div class="evento-icon">${emoji}</div>
+    <div class="evento-info">
+      <div class="evento-tipo">${e.tipo.substring(e.tipo.indexOf(' ')+1)}</div>
+      <div class="evento-meta">${e.gato?`🐱 ${e.gato}`:''} ${e.notas?`· ${e.notas}`:''}</div>
+    </div>
+    ${badge}
+  </div>`;
+}
+
+function formatDate(str){
+  const d=new Date(str);
+  return d.toLocaleDateString('es-ES',{day:'numeric',month:'short'});
+}
+
+function openEventoForm(){
+  editingEventoId=null;
+  document.getElementById('eventoFormTitle').textContent='Añadir recordatorio';
+  document.getElementById('eventoTipo').value='💉 Vacuna';
+  document.getElementById('eventoFecha').value='';
+  document.getElementById('eventoRepetir').value='';
+  document.getElementById('eventoNotas').value='';
+  // populate gato select
+  const sel=document.getElementById('eventoGato');
+  sel.innerHTML='<option value="">— Sin asignar —</option>'+gatos.map(g=>`<option value="${g.nombre}">${g.nombre}</option>`).join('');
+  document.getElementById('eventoFormModal').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeEventoForm(){ document.getElementById('eventoFormModal').classList.remove('show'); document.body.style.overflow=''; }
+
+function saveEvento(){
+  const fecha=document.getElementById('eventoFecha').value;
+  if(!fecha){showToast('⚠️ La fecha es obligatoria');return;}
+  const tipo=document.getElementById('eventoTipo').value;
+  const repetir=parseInt(document.getElementById('eventoRepetir').value)||0;
+  const evento={tipo,fecha,gato:document.getElementById('eventoGato').value,notas:document.getElementById('eventoNotas').value.trim()};
+  eventos.push(evento);
+  // add repeating events (up to 3 years)
+  if(repetir>0){
+    let d=new Date(fecha);
+    for(let i=0;i<10;i++){
+      d.setDate(d.getDate()+repetir);
+      const limit=new Date(); limit.setFullYear(limit.getFullYear()+3);
+      if(d>limit) break;
+      eventos.push({...evento,fecha:d.toISOString().split('T')[0]});
+    }
+  }
+  localStorage.setItem('michi_eventos',JSON.stringify(eventos));
+  closeEventoForm(); renderCalendario();
+  showToast('📅 Recordatorio guardado');
+}
+
+function deleteEvento(idx){
+  if(!confirm('¿Eliminar este recordatorio?')) return;
+  eventos.splice(idx,1);
+  localStorage.setItem('michi_eventos',JSON.stringify(eventos));
+  renderCalendario(); showToast('Recordatorio eliminado');
 }
 
 // ── THEME ──
-function toggleTheme() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '☀️';
-  localStorage.setItem('michi_theme', isDark ? 'light' : 'dark');
+function toggleTheme(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',isDark?'light':'dark');
+  document.getElementById('themeToggle').textContent=isDark?'🌙':'☀️';
+  localStorage.setItem('michi_theme',isDark?'light':'dark');
 }
 
 // ── TOAST ──
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// ── BACKDROP CLOSE ──
-document.getElementById('paywallOverlay').addEventListener('click', function(e) {
-  if (e.target === this) { this.classList.remove('show'); document.body.style.overflow = ''; }
-});
-document.getElementById('playerModal').addEventListener('click', function(e) {
-  if (e.target === this) closePlayer();
-});
-document.getElementById('gatoFormModal').addEventListener('click', function(e) {
-  if (e.target === this) closeGatoForm();
-});
-document.getElementById('gatoDetailModal').addEventListener('click', function(e) {
-  if (e.target === this) closeGatoDetail();
+// ── BACKDROP ──
+['paywallOverlay','playerModal','gatoFormModal','gatoDetailModal','eventoFormModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){
+    if(e.target===this){
+      if(id==='playerModal') closePlayer();
+      else if(id==='gatoFormModal') closeGatoForm();
+      else if(id==='gatoDetailModal') closeGatoDetail();
+      else if(id==='eventoFormModal') closeEventoForm();
+      else { this.classList.remove('show'); document.body.style.overflow=''; }
+    }
+  });
 });
 
 // ── INIT ──
-const savedTheme = localStorage.getItem('michi_theme');
-if (savedTheme) {
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-}
-
+const savedTheme=localStorage.getItem('michi_theme');
+if(savedTheme){ document.documentElement.setAttribute('data-theme',savedTheme); document.getElementById('themeToggle').textContent=savedTheme==='dark'?'☀️':'🌙'; }
 loadAllVideos();
 </script>
 </body>
