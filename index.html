@@ -1111,6 +1111,9 @@ loadAllVideos();
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('/michi-experto-app/service-worker.js');
 }
+
+// ── HIDE PWA INSTALL PROMPT ──
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); });
 </script>
 </body>
 </html>
