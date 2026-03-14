@@ -7,6 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="description" content="El Michi Experto - Todos los consejos para dueños de gatos">
+<link rel="manifest" href="manifest.json">
 <title>El Michi Experto</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -994,6 +995,11 @@ function showToast(msg){
 const savedTheme=localStorage.getItem('michi_theme');
 if(savedTheme){ document.documentElement.setAttribute('data-theme',savedTheme); document.getElementById('themeToggle').textContent=savedTheme==='dark'?'☀️':'🌙'; }
 loadAllVideos();
+
+// ── SERVICE WORKER ──
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/michi-experto-app/service-worker.js');
+}
 </script>
 </body>
 </html>
