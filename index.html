@@ -273,9 +273,45 @@ main { padding:16px; max-width:600px; margin:0 auto; }
 .video-card:nth-child(1){animation-delay:.04s} .video-card:nth-child(2){animation-delay:.08s}
 .video-card:nth-child(3){animation-delay:.12s} .video-card:nth-child(4){animation-delay:.16s}
 .gato-card:nth-child(1){animation-delay:.05s} .gato-card:nth-child(2){animation-delay:.10s}
+
+/* SPLASH */
+.splash { position:fixed; inset:0; background:var(--dark); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; transition:opacity .6s ease; }
+.splash.hide { opacity:0; pointer-events:none; }
+.splash-logo { width:100px; height:100px; border-radius:50%; border:3px solid var(--green); animation:splashPulse 1.2s ease-in-out infinite; }
+.splash-name { font-family:'Baloo 2',cursive; color:var(--yellow); font-size:26px; }
+.splash-sub { color:var(--green); font-size:13px; font-weight:600; }
+@keyframes splashPulse { 0%,100%{box-shadow:0 0 0 0 rgba(107,207,156,.5)} 50%{box-shadow:0 0 0 18px rgba(107,207,156,0)} }
+
+/* PAGE TRANSITION */
+.page.active { animation:pageIn .25s ease; }
+@keyframes pageIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* TABS FADE INDICATOR */
+.tabs-wrap { position:relative; }
+.tabs-fade { position:absolute; right:0; top:0; bottom:0; width:44px; background:linear-gradient(to left, var(--card-bg) 40%, transparent); pointer-events:none; z-index:2; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
+.tabs-fade-icon { font-size:13px; color:var(--green-dark); animation:arrowBounce 1.5s ease-in-out infinite; }
+@keyframes arrowBounce { 0%,100%{opacity:.5;transform:translateX(0)} 50%{opacity:1;transform:translateX(4px)} }
+
+/* SCROLL TO TOP */
+.scroll-top-btn { position:fixed; bottom:116px; right:16px; width:44px; height:44px; background:var(--green); border:none; border-radius:50%; color:white; font-size:20px; cursor:pointer; box-shadow:0 4px 16px rgba(107,207,156,.4); z-index:99; display:none; align-items:center; justify-content:center; transition:transform .15s; }
+.scroll-top-btn.visible { display:flex; }
+.scroll-top-btn:active { transform:scale(.88); }
+
+/* TAB COUNT */
+.tab-count { font-size:10px; font-weight:700; background:var(--green); color:white; padding:1px 6px; border-radius:50px; margin-left:3px; }
 </style>
 </head>
 <body>
+
+<!-- SPLASH SCREEN -->
+<div class="splash" id="splash">
+  <img class="splash-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="El Michi Experto">
+  <div class="splash-name">El Michi Experto</div>
+  <div class="splash-sub">Consejos para dueños de gatos 🐾</div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <!-- HEADER -->
 <header class="header">
@@ -299,13 +335,14 @@ main { padding:16px; max-width:600px; margin:0 auto; }
 
 <!-- TABS -->
 <div class="tabs-wrap" id="tabsWrap">
-  <div class="tabs">
+  <div class="tabs" id="tabsInner">
     <button class="tab active" onclick="selectTab('all',this)">🐾 Todos</button>
     <button class="tab" onclick="selectTab('PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr',this)">😼 Comportamiento</button>
     <button class="tab" onclick="selectTab('PLQUN61uzwDtmh10vwM1bB_vJuUYESJbWd',this)">🍗 Alimentación</button>
     <button class="tab" onclick="selectTab('PLQUN61uzwDtnRiyD4Xu76WqUsviEgkwDb',this)">🛁 Cuidados</button>
     <button class="tab" onclick="selectTab('PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer',this)">🧸 Juegos</button>
   </div>
+  <div class="tabs-fade" id="tabsFade"><span class="tabs-fade-icon">›</span></div>
 </div>
 
 <!-- PAGE: VIDEOS -->
@@ -655,6 +692,7 @@ async function loadAllVideos() {
     allVideos=results.flat().filter(v=>{if(seen.has(v.id))return false;seen.add(v.id);return true;});
     filteredVideos=[...allVideos];
     renderVideos(filteredVideos);
+    updateTabCounts();
   } catch(e){
     document.getElementById('mainContent').innerHTML=`<div class="empty"><div class="empty-emoji">⚠️</div><h3>Error al cargar</h3><p>Revisa que la API Key sea correcta.</p></div>`;
   }
@@ -1100,6 +1138,65 @@ function filterRazas() {
   const q = document.getElementById('razaSearch').value.toLowerCase().trim();
   razasFiltradas = q ? RAZAS.filter(r => r.nombre.toLowerCase().includes(q) || r.caracter.toLowerCase().includes(q)) : [...RAZAS];
   renderRazas(razasFiltradas);
+}
+
+// ── SPLASH ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(() => document.getElementById('splash').remove(), 600);
+  }, 2000);
+});
+
+// ── SCROLL TO TOP ──
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTopBtn');
+  if (window.scrollY > 300) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+});
+
+// ── TABS FADE HIDE ON SCROLL ──
+document.addEventListener('DOMContentLoaded', () => {
+  const tabsInner = document.getElementById('tabsInner');
+  const tabsFade = document.getElementById('tabsFade');
+  if (tabsInner) {
+    tabsInner.addEventListener('scroll', () => {
+      const atEnd = tabsInner.scrollLeft + tabsInner.clientWidth >= tabsInner.scrollWidth - 10;
+      tabsFade.style.opacity = atEnd ? '0' : '1';
+    });
+  }
+});
+
+// ── UPDATE TAB COUNTS ──
+function updateTabCounts() {
+  const counts = {};
+  allVideos.forEach(v => {
+    counts[v.playlistId] = (counts[v.playlistId] || 0) + 1;
+  });
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => {
+    const onclick = tab.getAttribute('onclick');
+    const match = onclick && onclick.match(/'(PL[^']+)'/);
+    if (match) {
+      const id = match[1];
+      const count = counts[id] || 0;
+      const existing = tab.querySelector('.tab-count');
+      if (existing) existing.remove();
+      if (count > 0) {
+        const badge = document.createElement('span');
+        badge.className = 'tab-count';
+        badge.textContent = count;
+        tab.appendChild(badge);
+      }
+    } else if (onclick && onclick.includes("'all'")) {
+      const existing = tab.querySelector('.tab-count');
+      if (existing) existing.remove();
+      const badge = document.createElement('span');
+      badge.className = 'tab-count';
+      badge.textContent = allVideos.length;
+      tab.appendChild(badge);
+    }
+  });
 }
 
 // ── INIT ──
