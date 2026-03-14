@@ -1,0 +1,29 @@
+{
+  "name": "El Michi Experto",
+  "short_name": "Michi Experto",
+  "description": "Todos los consejos para dueños de gatos en un solo lugar",
+  "start_url": "/michi-experto-app/",
+  "scope": "/michi-experto-app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2F2F2F",
+  "theme_color": "#6BCF9C",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s192-c-k-c0x00ffffff-no-rj",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s512-c-k-c0x00ffffff-no-rj",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "lifestyle", "entertainment"],
+  "screenshots": [],
+  "shortcuts": []
+}
