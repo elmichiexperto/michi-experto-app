@@ -228,7 +228,29 @@ main { padding:16px; max-width:600px; margin:0 auto; }
 .evento-badge.soon { background:rgba(255,209,102,.2); color:#b8860b; }
 .evento-badge.ok { background:var(--green-light); color:var(--green-dark); }
 
-/* LOADING */
+/* RAZAS */
+.razas-grid { display:flex; flex-direction:column; gap:12px; }
+.raza-card { background:var(--card-bg); border-radius:var(--radius); border:1.5px solid var(--border); box-shadow:var(--card-shadow); overflow:hidden; cursor:pointer; transition:transform .2s; }
+.raza-card:active { transform:scale(.98); }
+.raza-card-header { display:flex; align-items:center; gap:14px; padding:14px 16px; }
+.raza-emoji { font-size:36px; flex-shrink:0; }
+.raza-header-info { flex:1; }
+.raza-name { font-family:'Baloo 2',cursive; font-size:17px; color:var(--text); margin-bottom:4px; }
+.raza-tags { display:flex; gap:4px; flex-wrap:wrap; }
+.raza-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:50px; background:var(--green-light); color:var(--green-dark); border:1px solid rgba(107,207,156,.3); }
+.raza-tag.yellow { background:#fff8e1; color:#b8860b; border-color:rgba(255,209,102,.4); }
+.raza-tag.dark { background:rgba(47,47,47,.08); color:var(--text-muted); border-color:var(--border); }
+.raza-chevron { color:var(--text-muted); font-size:16px; transition:transform .2s; }
+.raza-card.open .raza-chevron { transform:rotate(90deg); }
+.raza-body { display:none; padding:0 16px 16px; border-top:1.5px solid var(--border); }
+.raza-card.open .raza-body { display:block; }
+.raza-section { margin-top:14px; }
+.raza-section-title { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+.raza-section-text { font-size:13px; font-weight:600; color:var(--text); line-height:1.6; }
+.raza-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+.raza-stat { background:var(--bg); border-radius:12px; padding:10px 12px; border:1.5px solid var(--border); text-align:center; }
+.raza-stat-label { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.raza-stat-val { font-family:'Baloo 2',cursive; font-size:14px; color:var(--text); }
 .loading { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:70px 20px; gap:16px; }
 .loading-logo { width:64px; height:64px; border-radius:50%; border:3px solid var(--green); animation:pulse 1.5s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(107,207,156,.4); } 50% { box-shadow:0 0 0 14px rgba(107,207,156,0); } }
@@ -368,6 +390,19 @@ main { padding:16px; max-width:600px; margin:0 auto; }
   </div>
 </div>
 
+<!-- PAGE: RAZAS -->
+<div class="page" id="pageRazas">
+  <div class="section-page">
+    <h2 class="section-title" style="margin-bottom:6px">📖 Guía de Razas</h2>
+    <p style="color:var(--text-muted);font-size:13px;font-weight:600;margin-bottom:16px">Las 20 razas más populares</p>
+    <div style="position:relative;margin-bottom:16px">
+      <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px">🔍</span>
+      <input class="form-input" type="text" id="razaSearch" placeholder="Buscar raza..." oninput="filterRazas()" style="padding-left:40px">
+    </div>
+    <div id="razasGrid"></div>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn active" id="navVideos" onclick="switchPage('videos')">
@@ -381,6 +416,9 @@ main { padding:16px; max-width:600px; margin:0 auto; }
   </button>
   <button class="nav-btn" id="navCalendario" onclick="switchPage('calendario')">
     <span class="nav-icon">📅</span><span class="nav-label">Calendario</span>
+  </button>
+  <button class="nav-btn" id="navRazas" onclick="switchPage('razas')">
+    <span class="nav-icon">📖</span><span class="nav-label">Razas</span>
   </button>
 </nav>
 
@@ -583,6 +621,10 @@ function switchPage(page) {
     document.getElementById('pageCalendario').classList.add('active');
     document.getElementById('navCalendario').classList.add('active');
     renderCalendario();
+  } else if(page==='razas'){
+    document.getElementById('pageRazas').classList.add('active');
+    document.getElementById('navRazas').classList.add('active');
+    renderRazas(RAZAS);
   }
 }
 
@@ -990,6 +1032,75 @@ function showToast(msg){
     }
   });
 });
+
+// ── RAZAS ──
+const RAZAS = [
+  { nombre:'Maine Coon', emoji:'🦁', origen:'Estados Unidos', tamaño:'Grande', pelo:'Largo', caracter:'Afectuoso, juguetón y sociable', esperanza:'12-15 años', descripcion:'El gigante gentil de las razas felinas. El Maine Coon es una de las razas más grandes del mundo y destaca por su pelaje espeso, su cola poblada y su carácter amigable. Son muy inteligentes y se llevan bien con niños y otros animales.', cuidados:'Su pelaje largo requiere cepillado 2-3 veces por semana. Son propensos a la displasia de cadera y la cardiomiopatía hipertrófica, por lo que se recomienda revisión veterinaria anual.', curiosidad:'Se les llama "los perros del mundo felino" porque les encanta seguir a sus dueños por toda la casa y pueden aprender a hacer trucos.' },
+  { nombre:'Persa', emoji:'👑', origen:'Irán', tamaño:'Mediano', pelo:'Largo', caracter:'Tranquilo, cariñoso y reservado', esperanza:'12-17 años', descripcion:'El Persa es sinónimo de elegancia y calma. Con su cara achatada y su pelaje exuberante, es una de las razas más reconocidas del mundo. Prefieren los ambientes tranquilos y son perfectos para apartamentos.', cuidados:'Necesitan cepillado diario para evitar nudos. Sus ojos lagrimean con frecuencia y hay que limpiarlos a diario. Son propensos a problemas respiratorios por su cara plana.', curiosidad:'El Persa fue la raza favorita de la reina Victoria de Inglaterra, quien tenía dos ejemplares de color azul.' },
+  { nombre:'Siamés', emoji:'👀', origen:'Tailandia', tamaño:'Mediano', pelo:'Corto', caracter:'Vocal, inteligente y muy apegado', esperanza:'15-20 años', descripcion:'El Siamés es famoso por su voz — son los gatos más "habladores" del mundo felino. Extremadamente inteligentes y cariñosos, forman vínculos muy fuertes con sus dueños. No les gusta estar solos.', cuidados:'Su pelaje corto requiere poco mantenimiento. Son propensos a problemas dentales, por lo que se recomienda limpieza dental regular. Necesitan mucha estimulación mental.', curiosidad:'En la antigüedad, los Siameses eran considerados guardianes de los templos en Tailandia y solo podían ser propiedad de la familia real.' },
+  { nombre:'Ragdoll', emoji:'🫶', origen:'Estados Unidos', tamaño:'Grande', pelo:'Semilargo', caracter:'Dócil, tranquilo y muy cariñoso', esperanza:'12-17 años', descripcion:'El Ragdoll es conocido por quedarse completamente relajado cuando lo coges en brazos, como una muñeca de trapo. Son extremadamente dóciles, cariñosos y perfectos para familias con niños.', cuidados:'Cepillado 2 veces por semana. Son propensos a cardiomiopatía hipertrófica. Al ser muy confiados, es importante no dejarlos salir solos al exterior.', curiosidad:'El nombre "Ragdoll" viene de su característica de relajar completamente el cuerpo cuando los alzas, igual que una muñeca de trapo.' },
+  { nombre:'Bengalí', emoji:'🐆', origen:'Estados Unidos', tamaño:'Mediano-Grande', pelo:'Corto', caracter:'Activo, curioso y muy enérgico', esperanza:'12-16 años', descripcion:'El Bengalí tiene el aspecto de un leopardo en miniatura. Son el resultado del cruce entre el gato doméstico y el gato leopardo asiático. Increíblemente activos, inteligentes y necesitan mucha estimulación.', cuidados:'Pelaje de fácil mantenimiento. Necesitan mucho espacio y juego diario. Son propensos a enfermedad inflamatoria intestinal y anemia infecciosa felina.', curiosidad:'Los Bengalís son una de las pocas razas a las que les gusta el agua — muchos disfrutan jugando con el grifo o incluso nadando.' },
+  { nombre:'Británico de Pelo Corto', emoji:'🧸', origen:'Reino Unido', tamaño:'Grande', pelo:'Corto', caracter:'Tranquilo, independiente y cariñoso', esperanza:'12-20 años', descripcion:'El British Shorthair es el gato de peluche hecho realidad. Con su cuerpo robusto, sus mejillas redondeadas y su carácter equilibrado, es una de las razas más populares de Europa. Se adapta perfectamente a la vida en apartamento.', cuidados:'Cepillado semanal. Son propensos a la obesidad, por lo que hay que controlar su dieta. También pueden desarrollar cardiomiopatía hipertrófica.', curiosidad:'Se cree que el British Shorthair fue llevado a Gran Bretaña por los romanos hace más de 2000 años para proteger los suministros de comida de los ratones.' },
+  { nombre:'Esfinge', emoji:'✨', origen:'Canadá', tamaño:'Mediano', pelo:'Sin pelo', caracter:'Extrovertido, juguetón y muy social', esperanza:'8-14 años', descripcion:'El Esfinge es el gato sin pelo más conocido del mundo. Contrariamente a lo que se cree, no son hipoalergénicos, pero sí son extraordinariamente cariñosos y buscan el calor humano constantemente.', cuidados:'Sin pelo, necesitan baños semanales para eliminar el sebo acumulado. Son muy sensibles al frío y al sol. Propensos a cardiomiopatía hipertrófica y problemas de piel.', curiosidad:'A pesar de parecer sin pelo, el Esfinge tiene una fina capa de pelusa que lo hace sentir al tacto como una melocotón.' },
+  { nombre:'Abisinio', emoji:'🏃', origen:'Etiopía', tamaño:'Mediano', pelo:'Corto', caracter:'Activo, curioso y muy inteligente', esperanza:'9-15 años', descripcion:'El Abisinio es uno de los gatos más antiguos del mundo y uno de los más activos. Son exploradores natos, siempre en movimiento y con curiosidad insaciable. No son gatos de regazo, pero sí muy afectuosos a su manera.', cuidados:'Poco mantenimiento de pelaje. Necesitan mucho espacio y enriquecimiento ambiental. Son propensos a atrofia progresiva de retina y enfermedad renal.', curiosidad:'Se cree que el Abisinio es uno de los descendientes directos del gato sagrado del antiguo Egipto, el Mau egipcio.' },
+  { nombre:'Scottish Fold', emoji:'👂', origen:'Escocia', tamaño:'Mediano', pelo:'Corto o largo', caracter:'Tranquilo, adaptable y cariñoso', esperanza:'11-15 años', descripcion:'El Scottish Fold es inconfundible por sus orejas dobladas hacia adelante que le dan un aspecto de búho. Son gatos equilibrados, cariñosos y se adaptan bien a todo tipo de hogares.', cuidados:'Cepillado regular. Es muy importante saber que la mutación que les da las orejas dobladas puede causar problemas articulares graves. Comprar a criadores responsables es fundamental.', curiosidad:'Las orejas dobladas son el resultado de una mutación genética natural descubierta en 1961 en una granja escocesa. La primera ejemplar se llamaba Susie.' },
+  { nombre:'Bosque de Noruega', emoji:'🌲', origen:'Noruega', tamaño:'Grande', pelo:'Largo', caracter:'Independiente, cariñoso y aventurero', esperanza:'14-16 años', descripcion:'El Bosque de Noruega es un gato nórdico robusto, adaptado a climas fríos, con un pelaje doble impermeable y unas garras perfectas para trepar. Son independientes pero muy cariñosos con su familia.', cuidados:'Cepillado 2 veces por semana, más frecuente en época de muda. Son propensos a glucogenosis tipo IV, una enfermedad metabólica hereditaria.', curiosidad:'En la mitología nórdica, los gatos del Bosque de Noruega tiraban del carro de la diosa Freya. Los vikingos los llevaban en sus barcos para controlar las plagas.' },
+  { nombre:'Europeo Común', emoji:'🏠', origen:'Europa', tamaño:'Mediano', pelo:'Corto', caracter:'Independiente, adaptable y resistente', esperanza:'15-20 años', descripcion:'El Europeo Común es el gato de toda la vida, el más frecuente en los hogares españoles. No es una raza seleccionada artificialmente, lo que le otorga una salud extraordinaria y un carácter equilibrado.', cuidados:'Muy poco mantenimiento. Son los gatos más sanos y longevos. Aun así, las revisiones anuales y las vacunas son fundamentales.', curiosidad:'El Europeo Común tiene el genoma más diverso de todas las razas felinas, lo que le confiere una resistencia natural a muchas enfermedades.' },
+  { nombre:'Angora Turco', emoji:'🤍', origen:'Turquía', tamaño:'Mediano', pelo:'Semilargo', caracter:'Activo, inteligente y muy juguetón', esperanza:'12-18 años', descripcion:'El Angora Turco es una de las razas más antiguas del mundo. Elegante y ágil, con su pelaje sedoso y su carácter vivaz, es un gato que necesita atención y estimulación constante.', cuidados:'Cepillado 2 veces por semana. Son propensos a la sordera (especialmente los de ojos azules) y a la cardiomiopatía hipertrófica.', curiosidad:'En Turquía, el Angora Turco blanco de ojos impares (un ojo azul y otro ámbar) es considerado un animal sagrado y es protegido por el estado.' },
+  { nombre:'Azul Ruso', emoji:'💙', origen:'Rusia', tamaño:'Mediano', pelo:'Corto', caracter:'Tímido con extraños, muy fiel a su familia', esperanza:'15-20 años', descripcion:'El Azul Ruso es conocido por su pelaje gris azulado y sus ojos verdes intensos. Son gatos elegantes, silenciosos y muy leales a su familia, aunque reservados con los desconocidos.', cuidados:'Pelaje de fácil mantenimiento. Son propensos a la obesidad. Se recomienda una dieta controlada. Una de las razas más longevas.', curiosidad:'Se dice que los Azules Rusos son uno de los gatos más hipoalergénicos porque producen menos proteína Fel d1, la principal causa de las alergias a los gatos.' },
+  { nombre:'Burmés', emoji:'🍫', origen:'Birmania/EE.UU.', tamaño:'Mediano', pelo:'Corto', caracter:'Social, juguetón y muy cariñoso', esperanza:'10-17 años', descripcion:'El Burmés es un gato compacto, musculoso y extremadamente cariñoso. Son muy sociales y no les gusta estar solos. Se llevan bien con niños, otros gatos e incluso perros.', cuidados:'Pelaje de muy fácil mantenimiento. Son propensos a diabetes, gingivitis y síndrome hiperkalemia hipokaliemia. Necesitan compañía diaria.', curiosidad:'Todos los Burmeses modernos descienden de una sola gata llamada Wong Mau, traída a Estados Unidos desde Birmania en 1930.' },
+  { nombre:'Sagrado de Birmania', emoji:'🙏', origen:'Birmania/Francia', tamaño:'Mediano-Grande', pelo:'Semilargo', caracter:'Equilibrado, cariñoso y tranquilo', esperanza:'12-16 años', descripcion:'El Sagrado de Birmania es conocido por sus guantes blancos en las patas y sus ojos azules profundos. Son gatos equilibrados, ni demasiado activos ni demasiado pasivos, perfectos para familias.', cuidados:'Cepillado 2 veces por semana. Son propensos a cardiomiopatía hipertrófica y enfermedad renal poliquística.', curiosidad:'Según la leyenda, el Sagrado de Birmania fue creado por una diosa para recompensar la lealtad de un sacerdote budista, tiñendo sus patas de blanco como señal de pureza.' },
+  { nombre:'Devon Rex', emoji:'🛸', origen:'Reino Unido', tamaño:'Pequeño-Mediano', pelo:'Rizado corto', caracter:'Travieso, juguetón y muy activo', esperanza:'9-15 años', descripcion:'El Devon Rex parece un pequeño elfo o alienígena con sus orejas enormes y su pelo rizado. Son extraordinariamente juguetones, traviesos y les encanta estar en lo alto de todo.', cuidados:'Su pelo rizado es frágil y puede romperse con el cepillado. Limpiar con un paño suave. Son propensos a miopatía hereditaria y luxación de rótula.', curiosidad:'El Devon Rex puede aprender trucos como un perro — sentarse, dar la pata o buscar objetos. Son de los gatos más entrenables del mundo felino.' },
+  { nombre:'Cornish Rex', emoji:'🌀', origen:'Reino Unido', tamaño:'Mediano', pelo:'Rizado corto', caracter:'Activo, curioso y muy sociable', esperanza:'11-15 años', descripcion:'El Cornish Rex tiene un pelaje único en ondas que recuerda al terciopelo. Son gatos eternamente jóvenes en actitud, siempre listos para jugar sin importar la edad que tengan.', cuidados:'Pelaje rizado que no requiere cepillado pero sí baños ocasionales. Son sensibles al frío. Propensos a alopecia y problemas cardíacos.', curiosidad:'El Cornish Rex tiene solo la capa interior de pelo (lanilla), sin las capas exterior e intermedia, lo que hace que su pelaje sea excepcionalmente suave al tacto.' },
+  { nombre:'Somalí', emoji:'🦊', origen:'Somalia/EE.UU.', tamaño:'Mediano', pelo:'Semilargo', caracter:'Activo, curioso y muy inteligente', esperanza:'12-16 años', descripcion:'El Somalí es básicamente un Abisinio de pelo largo. Son gatos activos, curiosos y juguetones que necesitan mucha estimulación. Su cola esponjosa les da el aspecto de un pequeño zorro.', cuidados:'Cepillado 2 veces por semana. Son propensos a atrofia progresiva de retina y enfermedad renal poliquística.', curiosidad:'El Somalí recibió su nombre por Somalia, país vecino de Etiopía (patria del Abisinio), aunque en realidad la raza se desarrolló en América del Norte.' },
+  { nombre:'Bombay', emoji:'🖤', origen:'Estados Unidos', tamaño:'Mediano', pelo:'Corto', caracter:'Cariñoso, tranquilo y adaptable', esperanza:'12-16 años', descripcion:'El Bombay es un pantera en miniatura: completamente negro, con ojos dorados intensos y un carácter dulce y equilibrado. Son gatos de interior perfectos, muy cariñosos y adaptables.', cuidados:'Pelaje de muy fácil mantenimiento. Son propensos a problemas respiratorios por su cara levemente achatada y a cardiomiopatía hipertrófica.', curiosidad:'El Bombay fue creado en los años 50 cruzando Burmeses y American Shorthairs con el objetivo específico de crear un gato que pareciera una pantera negra en miniatura.' },
+  { nombre:'Tonkinés', emoji:'💎', origen:'Canadá', tamaño:'Mediano', pelo:'Corto', caracter:'Sociable, inteligente y muy curioso', esperanza:'10-16 años', descripcion:'El Tonkinés es el resultado del cruce entre el Siamés y el Burmés, heredando lo mejor de ambas razas: la inteligencia del Siamés y el carácter dulce del Burmés. Son muy sociales y necesitan compañía.', cuidados:'Pelaje de fácil mantenimiento. Son propensos a gingivitis y problemas renales. Necesitan compañía y estimulación diaria.', curiosidad:'El Tonkinés tiene un patrón de color único llamado "mink" que solo aparece en esta raza, con un efecto de degradado entre el cuerpo más claro y las extremidades más oscuras.' }
+];
+
+let razasFiltradas = [...RAZAS];
+
+function renderRazas(lista) {
+  const grid = document.getElementById('razasGrid');
+  if (!lista.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-emoji">🔍</div><h3>Sin resultados</h3><p>Prueba con otro nombre de raza.</p></div>`;
+    return;
+  }
+  grid.innerHTML = lista.map((r, i) => `
+    <div class="raza-card" id="raza-${i}" onclick="toggleRaza(${i})">
+      <div class="raza-card-header">
+        <div class="raza-emoji">${r.emoji}</div>
+        <div class="raza-header-info">
+          <div class="raza-name">${r.nombre}</div>
+          <div class="raza-tags">
+            <span class="raza-tag">${r.origen}</span>
+            <span class="raza-tag dark">${r.tamaño}</span>
+            <span class="raza-tag yellow">${r.pelo}</span>
+          </div>
+        </div>
+        <div class="raza-chevron">›</div>
+      </div>
+      <div class="raza-body">
+        <div class="raza-stats">
+          <div class="raza-stat"><div class="raza-stat-label">Esperanza de vida</div><div class="raza-stat-val">${r.esperanza}</div></div>
+          <div class="raza-stat"><div class="raza-stat-label">Carácter</div><div class="raza-stat-val" style="font-size:12px">${r.caracter}</div></div>
+        </div>
+        <div class="raza-section"><div class="raza-section-title">📋 Descripción</div><div class="raza-section-text">${r.descripcion}</div></div>
+        <div class="raza-section"><div class="raza-section-title">🏥 Cuidados y salud</div><div class="raza-section-text">${r.cuidados}</div></div>
+        <div class="raza-section"><div class="raza-section-title">💡 Curiosidad</div><div class="raza-section-text">${r.curiosidad}</div></div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleRaza(i) {
+  const card = document.getElementById(`raza-${i}`);
+  card.classList.toggle('open');
+}
+
+function filterRazas() {
+  const q = document.getElementById('razaSearch').value.toLowerCase().trim();
+  razasFiltradas = q ? RAZAS.filter(r => r.nombre.toLowerCase().includes(q) || r.caracter.toLowerCase().includes(q)) : [...RAZAS];
+  renderRazas(razasFiltradas);
+}
 
 // ── INIT ──
 const savedTheme=localStorage.getItem('michi_theme');
