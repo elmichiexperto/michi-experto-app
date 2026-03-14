@@ -27,6 +27,7 @@
     --border: #e2f4eb;
     --card-shadow: 0 4px 24px rgba(107,207,156,0.12);
     --radius: 18px;
+    --nav-h: 64px;
   }
 
   [data-theme="dark"] {
@@ -47,8 +48,10 @@
     color: var(--text);
     min-height: 100vh;
     transition: background 0.3s, color 0.3s;
+    padding-bottom: var(--nav-h);
   }
 
+  /* ── HEADER ── */
   .header {
     background: var(--dark);
     padding: 0 16px;
@@ -58,65 +61,30 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.25);
   }
 
-  .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-  }
+  .header-top { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .logo { display: flex; align-items: center; gap: 10px; }
 
   .logo-img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 42px; height: 42px;
+    border-radius: 50%; object-fit: cover;
     border: 2.5px solid var(--green);
-    background: #fff;
-    flex-shrink: 0;
+    background: #fff; flex-shrink: 0;
   }
 
-  .logo-text {
-    font-family: 'Baloo 2', cursive;
-    color: var(--yellow);
-    font-size: 17px;
-    line-height: 1.1;
-  }
+  .logo-text { font-family: 'Baloo 2', cursive; color: var(--yellow); font-size: 17px; line-height: 1.1; }
+  .logo-text span { font-size: 11px; font-family: 'Quicksand', sans-serif; font-weight: 600; color: var(--green); display: block; }
 
-  .logo-text span {
-    font-size: 11px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 600;
-    color: var(--green);
-    display: block;
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
 
   .icon-btn {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     background: rgba(107,207,156,0.15);
     border: 1.5px solid rgba(107,207,156,0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    transition: background 0.2s, transform 0.1s;
-    color: white;
+    border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; transition: background 0.2s, transform 0.1s; color: white;
   }
-
   .icon-btn:active { transform: scale(0.9); }
   .icon-btn:hover { background: rgba(107,207,156,0.3); }
 
@@ -124,436 +92,393 @@
   .search-input-wrap { position: relative; }
 
   .search-input {
-    width: 100%;
-    padding: 11px 16px 11px 42px;
-    border-radius: 50px;
-    border: 2px solid rgba(107,207,156,0.3);
+    width: 100%; padding: 11px 16px 11px 42px;
+    border-radius: 50px; border: 2px solid rgba(107,207,156,0.3);
     background: rgba(255,255,255,0.08);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: white;
-    outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    font-family: 'Quicksand', sans-serif; font-size: 14px; font-weight: 600; color: white;
+    outline: none; transition: border-color 0.2s, background 0.2s;
   }
-
   .search-input::placeholder { color: rgba(255,255,255,0.4); }
   .search-input:focus { border-color: var(--green); background: rgba(255,255,255,0.12); }
 
-  .search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 15px;
+  .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 15px; }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: space-around;
+    border-top: 1px solid rgba(107,207,156,0.15);
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
   }
 
+  .nav-btn {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; border: none; background: none; cursor: pointer;
+    padding: 8px 0; transition: transform 0.1s;
+  }
+
+  .nav-btn:active { transform: scale(0.92); }
+
+  .nav-icon { font-size: 20px; transition: transform 0.2s; }
+  .nav-label { font-family: 'Quicksand', sans-serif; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+
+  .nav-btn.active .nav-label { color: var(--green); }
+  .nav-btn.active .nav-icon { transform: scale(1.15); }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── TABS ── */
   .tabs-wrap {
-    background: var(--card-bg);
-    border-bottom: 2px solid var(--border);
-    overflow-x: auto;
-    scrollbar-width: none;
-    transition: background 0.3s;
+    background: var(--card-bg); border-bottom: 2px solid var(--border);
+    overflow-x: auto; scrollbar-width: none; transition: background 0.3s;
   }
-
   .tabs-wrap::-webkit-scrollbar { display: none; }
 
-  .tabs {
-    display: flex;
-    padding: 0 12px;
-    gap: 2px;
-    min-width: max-content;
-  }
+  .tabs { display: flex; padding: 0 12px; gap: 2px; min-width: max-content; }
 
   .tab {
-    padding: 13px 15px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-muted);
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
+    padding: 13px 15px; border: none; background: none; cursor: pointer;
+    font-family: 'Quicksand', sans-serif; font-size: 13px; font-weight: 700;
+    color: var(--text-muted); border-bottom: 3px solid transparent;
+    transition: all 0.2s; white-space: nowrap;
   }
-
   .tab.active { color: var(--green-dark); border-bottom-color: var(--green); }
   .tab:hover { color: var(--green-dark); }
 
-  main {
-    padding: 16px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
+  /* ── MAIN ── */
+  main { padding: 16px; max-width: 600px; margin: 0 auto; }
 
+  /* ── SUBSCRIBE BANNER ── */
   .subscribe-banner {
-    background: var(--dark);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    background: var(--dark); border-radius: var(--radius);
+    padding: 14px 16px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
     border: 1.5px solid rgba(107,207,156,0.2);
     animation: slideDown 0.4s ease;
   }
-
-  .subscribe-banner-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .subscribe-banner img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid var(--green);
-    flex-shrink: 0;
-  }
-
+  .subscribe-banner-left { display: flex; align-items: center; gap: 10px; }
+  .subscribe-banner img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--green); flex-shrink: 0; }
   .subscribe-banner p { color: white; font-size: 13px; font-weight: 700; line-height: 1.3; }
   .subscribe-banner p span { font-size: 11px; font-weight: 500; color: var(--green); display: block; }
 
   .sub-btn {
-    background: var(--yellow);
-    color: var(--dark);
-    border: none;
-    padding: 9px 14px;
-    border-radius: 50px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: transform 0.1s, background 0.2s;
-    flex-shrink: 0;
+    background: var(--yellow); color: var(--dark); border: none;
+    padding: 9px 14px; border-radius: 50px;
+    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 12px;
+    cursor: pointer; white-space: nowrap; transition: transform 0.1s, background 0.2s; flex-shrink: 0;
   }
-
   .sub-btn:active { transform: scale(0.95); }
   .sub-btn:hover { background: var(--yellow-dark); }
 
-  .paywall-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 200;
-    align-items: flex-end;
-    justify-content: center;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .paywall-overlay.show { display: flex; }
-
-  .paywall-card {
-    background: var(--card-bg);
-    border-radius: 28px 28px 0 0;
-    padding: 32px 24px 44px;
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
-    animation: slideUp 0.4s ease;
-  }
-
-  .paywall-logo {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    border: 3px solid var(--green);
-    margin: 0 auto 14px;
-    display: block;
-  }
-
-  .paywall-badge {
-    display: inline-block;
-    background: var(--green-light);
-    color: var(--green-dark);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 50px;
-    margin-bottom: 14px;
-  }
-
-  .paywall-card h2 {
-    font-family: 'Baloo 2', cursive;
-    font-size: 24px;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .paywall-card p {
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-
-  .paywall-btn-primary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 16px;
-    background: #FF0000;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: transform 0.1s;
-    box-shadow: 0 4px 20px rgba(255,0,0,0.25);
-  }
-
-  .paywall-btn-primary:active { transform: scale(0.98); }
-
-  .paywall-btn-secondary {
-    background: none;
-    border: 2px solid var(--green);
-    color: var(--green-dark);
-    padding: 14px;
-    border-radius: 50px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .paywall-btn-secondary:hover { background: var(--green); color: white; }
-
-  .video-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  /* ── VIDEO GRID ── */
+  .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   .video-card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    cursor: pointer;
+    background: var(--card-bg); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--card-shadow); cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    animation: fadeInUp 0.4s ease both;
-    border: 1.5px solid var(--border);
+    animation: fadeInUp 0.4s ease both; border: 1.5px solid var(--border);
   }
-
   .video-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(107,207,156,0.2); }
   .video-card:active { transform: scale(0.97); }
 
-  .video-thumb {
-    position: relative;
-    aspect-ratio: 9/16;
-    overflow: hidden;
-    background: var(--green-light);
-  }
-
+  .video-thumb { position: relative; aspect-ratio: 9/16; overflow: hidden; background: var(--green-light); }
   .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
   .video-card:hover .video-thumb img { transform: scale(1.05); }
 
   .play-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(47,47,47,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.2s;
+    position: absolute; inset: 0; background: rgba(47,47,47,0.3);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
   }
-
   .video-card:hover .play-overlay { opacity: 1; }
 
   .play-btn {
-    width: 46px;
-    height: 46px;
-    background: var(--yellow);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    width: 46px; height: 46px; background: var(--yellow); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   }
 
   .fav-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
-    background: rgba(47,47,47,0.55);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: transform 0.2s, background 0.2s;
-    z-index: 2;
-    backdrop-filter: blur(4px);
+    position: absolute; top: 8px; right: 8px;
+    width: 30px; height: 30px;
+    background: rgba(47,47,47,0.55); border: none; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; transition: transform 0.2s, background 0.2s;
+    z-index: 2; backdrop-filter: blur(4px);
   }
-
   .fav-btn:active { transform: scale(0.8); }
   .fav-btn.active { background: rgba(255,209,102,0.85); }
 
   .locked-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(47,47,47,0.75);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    backdrop-filter: blur(2px);
+    position: absolute; inset: 0; background: rgba(47,47,47,0.75);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; backdrop-filter: blur(2px);
   }
-
   .locked-overlay span:first-child { font-size: 28px; }
   .locked-overlay span:last-child { color: var(--yellow); font-size: 11px; font-weight: 700; text-align: center; padding: 0 10px; line-height: 1.3; }
 
   .video-info { padding: 10px 11px 12px; }
+  .video-title { font-size: 12px; font-weight: 700; line-height: 1.4; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 7px; }
+  .video-tag { display: inline-block; padding: 3px 9px; border-radius: 50px; font-size: 10px; font-weight: 700; background: var(--green-light); color: var(--green-dark); border: 1px solid rgba(107,207,156,0.3); }
 
-  .video-title {
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--text);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 7px;
+  /* ── PAYWALL ── */
+  .paywall-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 200; align-items: flex-end; justify-content: center;
+    animation: fadeIn 0.3s ease;
   }
+  .paywall-overlay.show { display: flex; }
 
-  .video-tag {
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 50px;
-    font-size: 10px;
-    font-weight: 700;
-    background: var(--green-light);
-    color: var(--green-dark);
-    border: 1px solid rgba(107,207,156,0.3);
+  .paywall-card {
+    background: var(--card-bg); border-radius: 28px 28px 0 0;
+    padding: 32px 24px 44px; width: 100%; max-width: 600px;
+    text-align: center; animation: slideUp 0.4s ease;
   }
+  .paywall-logo { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--green); margin: 0 auto 14px; display: block; }
+  .paywall-badge { display: inline-block; background: var(--green-light); color: var(--green-dark); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 50px; margin-bottom: 14px; }
+  .paywall-card h2 { font-family: 'Baloo 2', cursive; font-size: 24px; color: var(--text); margin-bottom: 8px; }
+  .paywall-card p { color: var(--text-muted); font-size: 14px; font-weight: 600; line-height: 1.6; margin-bottom: 24px; }
 
+  .paywall-btn-primary {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 16px; background: #FF0000; color: white; border: none;
+    border-radius: 50px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 15px;
+    cursor: pointer; margin-bottom: 12px; transition: transform 0.1s;
+    box-shadow: 0 4px 20px rgba(255,0,0,0.25);
+  }
+  .paywall-btn-primary:active { transform: scale(0.98); }
+
+  .paywall-btn-secondary {
+    background: none; border: 2px solid var(--green); color: var(--green-dark);
+    padding: 14px; border-radius: 50px; font-family: 'Quicksand', sans-serif;
+    font-weight: 700; font-size: 14px; cursor: pointer; width: 100%;
+    transition: background 0.2s, color 0.2s;
+  }
+  .paywall-btn-secondary:hover { background: var(--green); color: white; }
+
+  /* ── PLAYER ── */
   .player-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 300;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+    z-index: 300; align-items: center; justify-content: center; padding: 16px;
   }
-
   .player-modal.show { display: flex; }
 
   .player-wrap {
-    background: var(--dark);
-    border-radius: 22px;
-    overflow: hidden;
-    width: 100%;
-    max-width: 380px;
-    position: relative;
-    animation: popIn 0.3s ease;
-    border: 2px solid rgba(107,207,156,0.2);
+    background: var(--dark); border-radius: 22px; overflow: hidden;
+    width: 100%; max-width: 380px; position: relative;
+    animation: popIn 0.3s ease; border: 2px solid rgba(107,207,156,0.2);
   }
-
   .player-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    background: rgba(255,255,255,0.12);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
+    position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
+    background: rgba(255,255,255,0.12); border: none; border-radius: 50%;
+    color: white; font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; z-index: 10;
     transition: background 0.2s;
   }
-
   .player-close:hover { background: rgba(255,255,255,0.25); }
-
   .player-iframe-wrap { position: relative; padding-bottom: 177.77%; height: 0; }
   .player-iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
-  .player-sub-nudge {
-    padding: 13px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    border-top: 1px solid rgba(107,207,156,0.15);
-  }
-
+  .player-sub-nudge { padding: 13px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(107,207,156,0.15); }
   .player-nudge-left { display: flex; align-items: center; gap: 8px; }
-
-  .player-nudge-left img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1.5px solid var(--green);
-  }
-
+  .player-nudge-left img { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--green); }
   .player-sub-nudge p { color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 600; line-height: 1.4; }
   .player-sub-nudge p strong { color: var(--green); display: block; font-size: 12px; }
+  .player-sub-nudge button { background: var(--yellow); color: var(--dark); border: none; padding: 8px 14px; border-radius: 50px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
 
-  .player-sub-nudge button {
-    background: var(--yellow);
-    color: var(--dark);
-    border: none;
-    padding: 8px 14px;
-    border-radius: 50px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
+  /* ── MIS GATOS PAGE ── */
+  .gatos-page { padding: 16px; max-width: 600px; margin: 0 auto; }
+
+  .gatos-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
   }
 
-  .loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 70px 20px;
-    gap: 16px;
+  .gatos-title { font-family: 'Baloo 2', cursive; font-size: 22px; color: var(--text); }
+
+  .add-gato-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--green); color: white; border: none;
+    padding: 10px 16px; border-radius: 50px;
+    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px;
+    cursor: pointer; transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 12px rgba(107,207,156,0.3);
+  }
+  .add-gato-btn:active { transform: scale(0.95); }
+  .add-gato-btn:hover { background: var(--green-dark); }
+
+  .gatos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .gato-card {
+    background: var(--card-bg); border-radius: var(--radius);
+    border: 1.5px solid var(--border); box-shadow: var(--card-shadow);
+    overflow: hidden; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeInUp 0.3s ease both;
+  }
+  .gato-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(107,207,156,0.18); }
+  .gato-card:active { transform: scale(0.97); }
+
+  .gato-photo-wrap {
+    position: relative; aspect-ratio: 1/1; overflow: hidden;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
   }
 
-  .loading-logo {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 3px solid var(--green);
-    animation: pulse 1.5s ease-in-out infinite;
+  .gato-photo { width: 100%; height: 100%; object-fit: cover; }
+
+  .gato-photo-placeholder { font-size: 52px; opacity: 0.5; }
+
+  .gato-age-badge {
+    position: absolute; bottom: 8px; right: 8px;
+    background: var(--dark); color: var(--yellow);
+    font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 50px;
+    border: 1px solid rgba(255,209,102,0.3);
   }
 
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(107,207,156,0.4); }
-    50% { box-shadow: 0 0 0 14px rgba(107,207,156,0); }
+  .gato-info { padding: 12px; }
+  .gato-name { font-family: 'Baloo 2', cursive; font-size: 16px; color: var(--text); margin-bottom: 2px; }
+  .gato-breed { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+
+  .gato-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .gato-tag {
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px;
+    background: var(--green-light); color: var(--green-dark);
+    border: 1px solid rgba(107,207,156,0.3);
+  }
+  .gato-tag.yellow { background: #fff8e1; color: #b8860b; border-color: rgba(255,209,102,0.4); }
+
+  .gatos-empty {
+    text-align: center; padding: 60px 20px;
+    grid-column: 1 / -1;
+  }
+  .gatos-empty-emoji { font-size: 64px; margin-bottom: 16px; }
+  .gatos-empty h3 { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 8px; }
+  .gatos-empty p { color: var(--text-muted); font-size: 14px; font-weight: 500; line-height: 1.5; }
+
+  /* ── GATO MODAL (form + detail) ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7); z-index: 250;
+    align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal-sheet {
+    background: var(--card-bg); border-radius: 28px 28px 0 0;
+    width: 100%; max-width: 600px;
+    max-height: 92vh; overflow-y: auto;
+    animation: slideUp 0.35s ease;
+    padding: 24px 20px 40px;
   }
 
+  .modal-handle {
+    width: 40px; height: 4px; background: var(--border);
+    border-radius: 4px; margin: 0 auto 20px;
+  }
+
+  .modal-title { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 20px; text-align: center; }
+
+  /* Photo picker */
+  .photo-picker {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .photo-preview {
+    width: 100px; height: 100px; border-radius: 50%;
+    border: 3px solid var(--green); object-fit: cover;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 44px; cursor: pointer; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .photo-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+  .photo-picker-label {
+    font-size: 12px; font-weight: 700; color: var(--green-dark); cursor: pointer;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  /* Form fields */
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .form-input, .form-select {
+    width: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 2px solid var(--border); background: var(--bg);
+    font-family: 'Quicksand', sans-serif; font-size: 14px; font-weight: 600;
+    color: var(--text); outline: none; transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--green); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .form-btn-row { display: flex; gap: 10px; margin-top: 20px; }
+
+  .btn-primary {
+    flex: 1; padding: 14px; background: var(--green); color: white; border: none;
+    border-radius: 50px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px;
+    cursor: pointer; transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary:hover { background: var(--green-dark); }
+
+  .btn-secondary {
+    flex: 1; padding: 14px; background: none; border: 2px solid var(--border);
+    color: var(--text-muted); border-radius: 50px;
+    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green-dark); }
+
+  /* Detail view */
+  .gato-detail-photo {
+    width: 110px; height: 110px; border-radius: 50%;
+    border: 4px solid var(--green); object-fit: cover;
+    margin: 0 auto 14px; display: block;
+    background: var(--green-light);
+    font-size: 52px; text-align: center; line-height: 110px;
+  }
+
+  .gato-detail-name { font-family: 'Baloo 2', cursive; font-size: 26px; color: var(--text); text-align: center; margin-bottom: 4px; }
+  .gato-detail-breed { color: var(--text-muted); font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 16px; }
+
+  .gato-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+
+  .gato-detail-item {
+    background: var(--bg); border-radius: 14px; padding: 12px;
+    border: 1.5px solid var(--border); text-align: center;
+  }
+  .gato-detail-item-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .gato-detail-item-val { font-family: 'Baloo 2', cursive; font-size: 16px; color: var(--text); }
+
+  .gato-detail-notes {
+    background: var(--bg); border-radius: 14px; padding: 14px;
+    border: 1.5px solid var(--border); margin-bottom: 20px;
+  }
+  .gato-detail-notes-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .gato-detail-notes-text { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; }
+
+  .btn-danger {
+    width: 100%; padding: 14px; background: none; border: 2px solid #ffcdd2;
+    color: #e53935; border-radius: 50px;
+    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-danger:hover { background: #ffebee; }
+
+  /* ── LOADING / EMPTY ── */
+  .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 70px 20px; gap: 16px; }
+  .loading-logo { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--green); animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(107,207,156,0.4); } 50% { box-shadow: 0 0 0 14px rgba(107,207,156,0); } }
   .loading p { color: var(--text-muted); font-weight: 600; font-size: 14px; }
 
   .empty { text-align: center; padding: 60px 20px; }
@@ -561,6 +486,20 @@
   .empty h3 { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text); margin-bottom: 6px; }
   .empty p { color: var(--text-muted); font-size: 14px; font-weight: 500; }
 
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--dark); color: white;
+    padding: 10px 20px; border-radius: 50px;
+    font-size: 13px; font-weight: 700; z-index: 400;
+    transition: transform 0.3s ease; white-space: nowrap;
+    border: 1px solid rgba(107,207,156,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── ANIMATIONS ── */
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -574,29 +513,15 @@
   .video-card:nth-child(5) { animation-delay: 0.20s; }
   .video-card:nth-child(6) { animation-delay: 0.24s; }
 
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--dark);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 700;
-    z-index: 400;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-    border: 1px solid rgba(107,207,156,0.3);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-
-  .toast.show { transform: translateX(-50%) translateY(0); }
+  .gato-card:nth-child(1) { animation-delay: 0.05s; }
+  .gato-card:nth-child(2) { animation-delay: 0.10s; }
+  .gato-card:nth-child(3) { animation-delay: 0.15s; }
+  .gato-card:nth-child(4) { animation-delay: 0.20s; }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="header">
   <div class="header-top">
     <div class="logo">
@@ -611,7 +536,7 @@
       <button class="icon-btn" id="themeToggle" title="Modo oscuro" onclick="toggleTheme()">🌙</button>
     </div>
   </div>
-  <div class="search-bar">
+  <div class="search-bar" id="searchBarWrap">
     <div class="search-input-wrap">
       <span class="search-icon">🔍</span>
       <input class="search-input" type="text" id="searchInput" placeholder="Buscar consejos para tu gato..." oninput="handleSearch()">
@@ -619,7 +544,8 @@
   </div>
 </header>
 
-<div class="tabs-wrap">
+<!-- TABS (videos page) -->
+<div class="tabs-wrap" id="tabsWrap">
   <div class="tabs">
     <button class="tab active" onclick="selectTab('all', this)">🐾 Todos</button>
     <button class="tab" onclick="selectTab('PLQUN61uzwDtksHsB6v2hLgI1zgsmwNIFr', this)">😼 Comportamiento</button>
@@ -629,13 +555,42 @@
   </div>
 </div>
 
-<main id="mainContent">
-  <div class="loading">
-    <img class="loading-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="Cargando...">
-    <p>Cargando consejos felinos...</p>
-  </div>
-</main>
+<!-- PAGE: VIDEOS -->
+<div class="page active" id="pageVideos">
+  <main id="mainContent">
+    <div class="loading">
+      <img class="loading-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="Cargando...">
+      <p>Cargando consejos felinos...</p>
+    </div>
+  </main>
+</div>
 
+<!-- PAGE: MIS GATOS -->
+<div class="page" id="pageMisGatos">
+  <div class="gatos-page">
+    <div class="gatos-header">
+      <h2 class="gatos-title">🐱 Mis Gatos</h2>
+      <button class="add-gato-btn" onclick="openGatoForm()">+ Añadir gato</button>
+    </div>
+    <div class="gatos-grid" id="gatosGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="navVideos" onclick="switchPage('videos')">
+    <span class="nav-icon">▶️</span>
+    <span class="nav-label">Videos</span>
+  </button>
+  <button class="nav-btn" id="navMisGatos" onclick="switchPage('misGatos')">
+    <span class="nav-icon">🐱</span>
+    <span class="nav-label">Mis Gatos</span>
+  </button>
+</nav>
+
+<!-- PAYWALL -->
 <div class="paywall-overlay" id="paywallOverlay">
   <div class="paywall-card">
     <img class="paywall-logo" src="https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj" alt="El Michi Experto">
@@ -647,6 +602,7 @@
   </div>
 </div>
 
+<!-- PLAYER MODAL -->
 <div class="player-modal" id="playerModal">
   <div class="player-wrap">
     <button class="player-close" onclick="closePlayer()">✕</button>
@@ -663,10 +619,92 @@
   </div>
 </div>
 
+<!-- GATO FORM MODAL -->
+<div class="modal-overlay" id="gatoFormModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3 class="modal-title" id="gatoFormTitle">Añadir gato</h3>
+
+    <div class="photo-picker">
+      <div class="photo-preview" id="photoPreview" onclick="document.getElementById('photoInput').click()">🐱</div>
+      <label class="photo-picker-label" onclick="document.getElementById('photoInput').click()">📷 Añadir foto</label>
+      <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhoto(this)">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Nombre *</label>
+      <input class="form-input" type="text" id="gatoNombre" placeholder="¿Cómo se llama tu gato?">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Raza</label>
+        <input class="form-input" type="text" id="gatoRaza" placeholder="Ej: Siamés">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sexo</label>
+        <select class="form-select" id="gatoSexo">
+          <option value="">— Seleccionar —</option>
+          <option value="Macho">Macho</option>
+          <option value="Hembra">Hembra</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Fecha de nacimiento</label>
+        <input class="form-input" type="date" id="gatoFecha">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Peso (kg)</label>
+        <input class="form-input" type="number" id="gatoPeso" placeholder="Ej: 4.5" step="0.1" min="0">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Castrado/a</label>
+        <select class="form-select" id="gatoCastrado">
+          <option value="">— Seleccionar —</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pelaje</label>
+        <select class="form-select" id="gatoPelaje">
+          <option value="">— Seleccionar —</option>
+          <option value="Corto">Corto</option>
+          <option value="Largo">Largo</option>
+          <option value="Sin pelo">Sin pelo</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Notas</label>
+      <input class="form-input" type="text" id="gatoNotas" placeholder="Alergias, medicación, cosas a recordar...">
+    </div>
+
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeGatoForm()">Cancelar</button>
+      <button class="btn-primary" onclick="saveGato()">Guardar 🐾</button>
+    </div>
+  </div>
+</div>
+
+<!-- GATO DETAIL MODAL -->
+<div class="modal-overlay" id="gatoDetailModal">
+  <div class="modal-sheet" id="gatoDetailContent">
+    <!-- populated by JS -->
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-const API_KEY = 'AIzaSyC9Qw8syDPv9uTbBicwBwqSAtL4UoQTu_Y'; // 👈 REEMPLAZA CON TU API KEY
+const API_KEY = 'AIzaSyC_3VIKJuxKCpiNkfEPh60ieU0zVASSlg0; // 👈 REEMPLAZA CON TU API KEY
 const CHANNEL_URL = 'https://www.youtube.com/@ELMICHIEXPERTO';
 const LOGO_URL = 'https://yt3.googleusercontent.com/aWX8O_kowHpYjoA19HoIaJHRkMy-s-DYSNGqGJPKus5ejPS8PuBkLPFUjHWPJQfRYA47digK=s160-c-k-c0x00ffffff-no-rj';
 const FREE_VIDEOS = 6;
@@ -678,11 +716,40 @@ const PLAYLISTS = {
   'PLQUN61uzwDtmk0-IgRlpr_qDIDcU-6wer': 'Juegos'
 };
 
+// ── STATE ──
 let allVideos = [], filteredVideos = [];
 let favorites = JSON.parse(localStorage.getItem('michi_favs') || '[]');
 let unlocked = localStorage.getItem('michi_unlocked') === 'true';
 let currentTab = 'all', showingFavs = false;
+let gatos = JSON.parse(localStorage.getItem('michi_gatos') || '[]');
+let editingGatoId = null;
+let currentPhotoBase64 = null;
 
+// ── NAVIGATION ──
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const searchBar = document.getElementById('searchBarWrap');
+  const tabsWrap = document.getElementById('tabsWrap');
+  const favToggle = document.getElementById('favToggle');
+
+  if (page === 'videos') {
+    document.getElementById('pageVideos').classList.add('active');
+    document.getElementById('navVideos').classList.add('active');
+    searchBar.style.display = '';
+    tabsWrap.style.display = '';
+    favToggle.style.display = '';
+  } else if (page === 'misGatos') {
+    document.getElementById('pageMisGatos').classList.add('active');
+    document.getElementById('navMisGatos').classList.add('active');
+    searchBar.style.display = 'none';
+    tabsWrap.style.display = 'none';
+    favToggle.style.display = 'none';
+    renderGatos();
+  }
+}
+
+// ── VIDEOS ──
 async function fetchPlaylist(playlistId) {
   const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`);
   const data = await res.json();
@@ -718,7 +785,7 @@ function renderVideos(videos) {
     <div class="subscribe-banner">
       <div class="subscribe-banner-left">
         <img src="${LOGO_URL}" alt="logo">
-        <p>¡Nuevo video cada día! 🐱<span>Suscríbete para no perderte ninguno</span></p>
+        <p>¡Nuevo video cada semana! 🐱<span>Suscríbete para no perderte ninguno</span></p>
       </div>
       <button class="sub-btn" onclick="goSubscribe()">Suscribirme</button>
     </div>` : '';
@@ -820,6 +887,191 @@ function toggleFavView() {
   }
 }
 
+// ── MIS GATOS ──
+function calcAge(dateStr) {
+  if (!dateStr) return null;
+  const birth = new Date(dateStr);
+  const now = new Date();
+  let years = now.getFullYear() - birth.getFullYear();
+  let months = now.getMonth() - birth.getMonth();
+  if (months < 0) { years--; months += 12; }
+  if (years === 0) return `${months} mes${months !== 1 ? 'es' : ''}`;
+  if (years === 1) return `1 año${months > 0 ? ` ${months}m` : ''}`;
+  return `${years} años`;
+}
+
+function renderGatos() {
+  const grid = document.getElementById('gatosGrid');
+  if (!gatos.length) {
+    grid.innerHTML = `
+      <div class="gatos-empty">
+        <div class="gatos-empty-emoji">🐱</div>
+        <h3>¡Aún no tienes gatos!</h3>
+        <p>Añade a tu peludo y guarda toda su información en un solo lugar.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = gatos.map((g, i) => {
+    const age = calcAge(g.fecha);
+    const photoHTML = g.photo
+      ? `<img class="gato-photo" src="${g.photo}" alt="${g.nombre}">`
+      : `<span class="gato-photo-placeholder">🐱</span>`;
+    return `
+      <div class="gato-card" onclick="openGatoDetail(${i})" style="animation-delay:${i * 0.05}s">
+        <div class="gato-photo-wrap">
+          ${photoHTML}
+          ${age ? `<div class="gato-age-badge">${age}</div>` : ''}
+        </div>
+        <div class="gato-info">
+          <div class="gato-name">${g.nombre}</div>
+          <div class="gato-breed">${g.raza || 'Raza desconocida'}</div>
+          <div class="gato-tags">
+            ${g.sexo ? `<span class="gato-tag">${g.sexo}</span>` : ''}
+            ${g.castrado ? `<span class="gato-tag yellow">${g.castrado === 'Sí' ? '✂️ Castrado' : 'No castrado'}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function handlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentPhotoBase64 = e.target.result;
+    const preview = document.getElementById('photoPreview');
+    preview.innerHTML = `<img src="${currentPhotoBase64}" alt="foto">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function openGatoForm(editIdx = null) {
+  editingGatoId = editIdx;
+  currentPhotoBase64 = null;
+  const title = document.getElementById('gatoFormTitle');
+
+  // reset
+  ['gatoNombre','gatoRaza','gatoNotas'].forEach(id => document.getElementById(id).value = '');
+  ['gatoSexo','gatoCastrado','gatoPelaje'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('gatoFecha').value = '';
+  document.getElementById('gatoPeso').value = '';
+  document.getElementById('photoPreview').innerHTML = '🐱';
+
+  if (editIdx !== null) {
+    title.textContent = 'Editar gato';
+    const g = gatos[editIdx];
+    document.getElementById('gatoNombre').value = g.nombre || '';
+    document.getElementById('gatoRaza').value = g.raza || '';
+    document.getElementById('gatoSexo').value = g.sexo || '';
+    document.getElementById('gatoFecha').value = g.fecha || '';
+    document.getElementById('gatoPeso').value = g.peso || '';
+    document.getElementById('gatoCastrado').value = g.castrado || '';
+    document.getElementById('gatoPelaje').value = g.pelaje || '';
+    document.getElementById('gatoNotas').value = g.notas || '';
+    if (g.photo) {
+      currentPhotoBase64 = g.photo;
+      document.getElementById('photoPreview').innerHTML = `<img src="${g.photo}" alt="foto">`;
+    }
+  } else {
+    title.textContent = 'Añadir gato';
+  }
+
+  document.getElementById('gatoDetailModal').classList.remove('show');
+  document.getElementById('gatoFormModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGatoForm() {
+  document.getElementById('gatoFormModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function saveGato() {
+  const nombre = document.getElementById('gatoNombre').value.trim();
+  if (!nombre) { showToast('⚠️ El nombre es obligatorio'); return; }
+
+  const gato = {
+    nombre,
+    raza: document.getElementById('gatoRaza').value.trim(),
+    sexo: document.getElementById('gatoSexo').value,
+    fecha: document.getElementById('gatoFecha').value,
+    peso: document.getElementById('gatoPeso').value,
+    castrado: document.getElementById('gatoCastrado').value,
+    pelaje: document.getElementById('gatoPelaje').value,
+    notas: document.getElementById('gatoNotas').value.trim(),
+    photo: currentPhotoBase64 || (editingGatoId !== null ? gatos[editingGatoId].photo : null)
+  };
+
+  if (editingGatoId !== null) {
+    gatos[editingGatoId] = gato;
+    showToast(`✅ ${nombre} actualizado`);
+  } else {
+    gatos.push(gato);
+    showToast(`🐱 ¡${nombre} añadido!`);
+  }
+
+  localStorage.setItem('michi_gatos', JSON.stringify(gatos));
+  closeGatoForm();
+  renderGatos();
+}
+
+function openGatoDetail(idx) {
+  const g = gatos[idx];
+  const age = calcAge(g.fecha);
+  const photoHTML = g.photo
+    ? `<img class="gato-detail-photo" src="${g.photo}" alt="${g.nombre}" style="object-fit:cover">`
+    : `<div class="gato-detail-photo" style="display:flex;align-items:center;justify-content:center;">🐱</div>`;
+
+  const items = [
+    { label: 'Edad', val: age || '—' },
+    { label: 'Sexo', val: g.sexo || '—' },
+    { label: 'Raza', val: g.raza || '—' },
+    { label: 'Peso', val: g.peso ? `${g.peso} kg` : '—' },
+    { label: 'Castrado/a', val: g.castrado || '—' },
+    { label: 'Pelaje', val: g.pelaje || '—' },
+  ].map(item => `
+    <div class="gato-detail-item">
+      <div class="gato-detail-item-label">${item.label}</div>
+      <div class="gato-detail-item-val">${item.val}</div>
+    </div>`).join('');
+
+  document.getElementById('gatoDetailContent').innerHTML = `
+    <div class="modal-handle"></div>
+    ${photoHTML}
+    <div class="gato-detail-name">${g.nombre}</div>
+    <div class="gato-detail-breed">${g.raza || 'Raza desconocida'}</div>
+    <div class="gato-detail-grid">${items}</div>
+    ${g.notas ? `<div class="gato-detail-notes"><div class="gato-detail-notes-label">📝 Notas</div><div class="gato-detail-notes-text">${g.notas}</div></div>` : ''}
+    <div class="form-btn-row">
+      <button class="btn-secondary" onclick="closeGatoDetail()">Cerrar</button>
+      <button class="btn-primary" onclick="openGatoForm(${idx})">✏️ Editar</button>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn-danger" onclick="deleteGato(${idx})">🗑️ Eliminar gato</button>
+    </div>`;
+
+  document.getElementById('gatoDetailModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGatoDetail() {
+  document.getElementById('gatoDetailModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function deleteGato(idx) {
+  const nombre = gatos[idx].nombre;
+  if (!confirm(`¿Seguro que quieres eliminar a ${nombre}?`)) return;
+  gatos.splice(idx, 1);
+  localStorage.setItem('michi_gatos', JSON.stringify(gatos));
+  closeGatoDetail();
+  renderGatos();
+  showToast(`${nombre} eliminado`);
+}
+
+// ── THEME ──
 function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
@@ -827,19 +1079,28 @@ function toggleTheme() {
   localStorage.setItem('michi_theme', isDark ? 'light' : 'dark');
 }
 
+// ── TOAST ──
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+// ── BACKDROP CLOSE ──
 document.getElementById('paywallOverlay').addEventListener('click', function(e) {
   if (e.target === this) { this.classList.remove('show'); document.body.style.overflow = ''; }
 });
 document.getElementById('playerModal').addEventListener('click', function(e) {
   if (e.target === this) closePlayer();
 });
+document.getElementById('gatoFormModal').addEventListener('click', function(e) {
+  if (e.target === this) closeGatoForm();
+});
+document.getElementById('gatoDetailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeGatoDetail();
+});
 
+// ── INIT ──
 const savedTheme = localStorage.getItem('michi_theme');
 if (savedTheme) {
   document.documentElement.setAttribute('data-theme', savedTheme);
