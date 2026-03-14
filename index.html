@@ -18,7 +18,7 @@
   --card-bg: #ffffff; --text: #2F2F2F; --text-muted: #7a7a7a;
   --bg: #f4faf7; --border: #e2f4eb;
   --card-shadow: 0 4px 24px rgba(107,207,156,0.12);
-  --radius: 18px; --nav-h: 64px;
+  --radius: 18px; --nav-h: 96px;
 }
 [data-theme="dark"] {
   --card-bg: #1e2d28; --text: #f0f0f0; --text-muted: #9ca3af;
@@ -47,7 +47,7 @@ body { font-family:'Quicksand',sans-serif; background:var(--bg); color:var(--tex
 .search-icon { position:absolute; left:15px; top:50%; transform:translateY(-50%); font-size:15px; }
 
 /* BOTTOM NAV */
-.bottom-nav { position:fixed; bottom:0; left:0; right:0; height:var(--nav-h); background:var(--dark); display:flex; align-items:center; justify-content:space-around; border-top:1px solid rgba(107,207,156,.15); z-index:100; box-shadow:0 -4px 20px rgba(0,0,0,.2); }
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; height:var(--nav-h); background:var(--dark); display:flex; align-items:center; justify-content:space-around; border-top:1px solid rgba(107,207,156,.15); z-index:100; box-shadow:0 -4px 20px rgba(0,0,0,.2); padding-bottom:env(safe-area-inset-bottom); }
 .nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:none; background:none; cursor:pointer; padding:8px 0; transition:transform .1s; }
 .nav-btn:active { transform:scale(.92); }
 .nav-icon { font-size:20px; transition:transform .2s; }
